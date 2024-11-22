@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="CustomerView" prefHeight="800.0" prefWidth="879.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.footwear.controller.CustomerController">
+   <children>
+      <Label layoutX="31.0" layoutY="96.0" text="Customer Id">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblCustomerId" layoutX="194.0" layoutY="99.0" text="C001">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtName" layoutX="194.0" layoutY="140.0" onAction="#txtNameOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtNic" layoutX="194.0" layoutY="185.0" onAction="#txtNicOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtEmail" layoutX="194.0" layoutY="273.0" onAction="#txtEmailOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtPhoneNo" layoutX="194.0" layoutY="318.0" onAction="#txtPhoneNoOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <Label layoutX="31.0" layoutY="143.0" text="Name">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="188.0" text="NIC">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="276.0" text="Email">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="321.0" text="Phone No">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnOrderReport" layoutX="384.0" layoutY="430.0" mnemonicParsing="false" onAction="#btnOrderReportOnAction" prefHeight="41.0" prefWidth="225.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="      Order Report">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnReset" layoutX="712.0" layoutY="122.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="41.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="        Reset">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDelete" layoutX="712.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="41.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="          Delete">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnUpdate" layoutX="712.0" layoutY="255.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="41.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="            Update">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSave" layoutX="712.0" layoutY="321.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="41.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="        Save">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnGenerateAllReport" ellipsisString="" layoutX="24.0" layoutY="430.0" mnemonicParsing="false" onAction="#btnGenarateAllReportOnAction" prefHeight="43.0" prefWidth="327.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="           Generate All Customer Report">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSendMail" layoutX="638.0" layoutY="430.0" mnemonicParsing="false" onAction="#btnSendMailOnAction" prefHeight="43.0" prefWidth="225.0" style="-fx-background-color: #0288d1; -fx-padding: 10px; -fx-background-radius: 30px;" text="      Send mail">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtAddress" layoutX="194.0" layoutY="226.0" onAction="#txtAddressOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <Label layoutX="31.0" layoutY="229.0" text="Address">
+         <font>
+            <Font name="Comic Sans MS" size="20.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblCustomer" layoutX="10.0" layoutY="501.0" onMouseClicked="#onClickTable" prefHeight="252.0" prefWidth="859.0">
+        <columns>
+          <TableColumn fx:id="colCustomerId" prefWidth="92.0" text="Customer Id" />
+          <TableColumn fx:id="colName" prefWidth="165.0" text="Name" />
+            <TableColumn fx:id="colNic" prefWidth="157.0" text="NIC" />
+            <TableColumn fx:id="colAddress" prefWidth="150.0" text="Address" />
+            <TableColumn fx:id="colEmail" minWidth="8.0" prefWidth="161.0" text="Email" />
+            <TableColumn fx:id="colPhoneNo" prefWidth="132.0" text="Phone No" />
+        </columns>
+      </TableView>
+      <Pane layoutY="-1.0" prefHeight="60.0" prefWidth="879.0" style="-fx-background-color: #1a355d;">
+         <children>
+            <Label fx:id="lblTitleCustomer" layoutX="276.0" layoutY="10.0" text="Customer Manage" textFill="#e0f7fa">
+               <font>
+                  <Font name="Georgia Bold" size="35.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="52.0" fitWidth="52.0" layoutX="224.0" layoutY="4.0">
+               <image>
+                  <Image url="@../images/icons8-customer-96.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="46.0" layoutY="434.0">
+         <image>
+            <Image url="@../images/icons8-graph-report-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="411.0" layoutY="434.0">
+         <image>
+            <Image url="@../images/icons8-graph-report-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="732.0" layoutY="126.0">
+         <image>
+            <Image url="@../images/icons8-reset-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="733.0" layoutY="192.0">
+         <image>
+            <Image url="@../images/icons8-delete-trash-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="733.0" layoutY="259.0">
+         <image>
+            <Image url="@../images/icons8-update-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="37.0" layoutX="733.0" layoutY="325.0">
+         <image>
+            <Image url="@../images/icons8-save-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="668.0" layoutY="434.0">
+         <image>
+            <Image url="@../images/icons8-send-mail-96.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="165.0" layoutY="97.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="144.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="189.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="230.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="276.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="165.0" layoutY="322.0" text=":">
+         <font>
+            <Font name="Comic Sans MS Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="SignInPage" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.footwear.controller.SignInController">
+   <children>
+      <AnchorPane prefHeight="800.0" prefWidth="542.0" style="-fx-background-color: #010e17;">
+         <children>
+            <ImageView fitHeight="800.0" fitWidth="532.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/img.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="542.0" prefHeight="10.0" prefWidth="711.0" style="-fx-background-color: #011111;" />
+      <Label fx:id="lblSignUp" layoutX="797.0" layoutY="48.0" text="Sign In" textFill="#0d468c">
+         <font>
+            <Font name="Georgia Bold" size="55.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtName" layoutX="707.0" layoutY="280.0" onAction="#txtNameOnAction" prefHeight="45.0" prefWidth="395.0" promptText="Name" style="-fx-background-color: #fff; -fx-border-color: blue; -fx-border-width: 0 0 1px 0;">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtEmail" layoutX="707.0" layoutY="421.0" onAction="#txtEmailOnAction" prefHeight="45.0" prefWidth="395.0" promptText="Email" style="-fx-background-color: #fff; -fx-border-color: blue; -fx-border-width: 0 0 1px 0;">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtPassword" layoutX="707.0" layoutY="487.0" onAction="#txtPasswordOnAction" prefHeight="45.0" prefWidth="395.0" promptText="Password" style="-fx-background-color: #fff; -fx-border-color: blue; -fx-border-width: 0 0 1px 0;">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txtConfirmPassword" layoutX="707.0" layoutY="560.0" onAction="#txtConfirmPasswordOnAction" prefHeight="45.0" prefWidth="395.0" promptText="Confirm Password" style="-fx-background-color: #fff; -fx-border-color: blue; -fx-border-width: 0 0 1px 0;">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="33.0" fitWidth="35.0" layoutX="658.0" layoutY="286.0">
+         <image>
+            <Image url="@../images/icons8-username-64.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="33.0" fitWidth="30.0" layoutX="662.0" layoutY="427.0">
+         <image>
+            <Image url="@../images/icons8-email-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="661.0" layoutY="493.0">
+         <image>
+            <Image url="@../images/icons8-lock-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="661.0" layoutY="566.0">
+         <image>
+            <Image url="@../images/icons8-lock-32.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnSignIn" graphicTextGap="0.0" layoutX="820.0" layoutY="667.0" mnemonicParsing="false" onAction="#btnSignInOnAction" prefHeight="65.0" prefWidth="156.0" style="-fx-background-color: #2d5cb2; -fx-background-radius: 20px;" text="Sign In" textFill="#f2eeee">
+         <font>
+            <Font name="Calibri Bold" size="35.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtUsername" layoutX="707.0" layoutY="349.0" onAction="#txtUsernameOnAction" prefHeight="45.0" prefWidth="395.0" promptText="User Name" style="-fx-background-color: #fff; -fx-border-color: blue; -fx-border-width: 0 0 1px 0;">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="33.0" fitWidth="35.0" layoutX="658.0" layoutY="355.0">
+         <image>
+            <Image url="@../images/icons8-username-64.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="200.0" fitWidth="193.0" layoutX="566.0" layoutY="27.0">
+         <image>
+            <Image url="@../images/img_5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnBack" layoutX="1175.0" layoutY="732.0" onMouseClicked="#onClickedBack">
+         <image>
+            <Image url="@../images/icons8-back-arrow-64.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="797.0" layoutY="116.0" prefHeight="23.0" prefWidth="270.0" text="Fill the form to create a account">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
