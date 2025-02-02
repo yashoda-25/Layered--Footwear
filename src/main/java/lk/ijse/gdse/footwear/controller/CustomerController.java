@@ -4,7 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,10 +15,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import lk.ijse.gdse.footwear.dto.CustomerDTO;
 import lk.ijse.gdse.footwear.dto.tm.CustomerTM;
 import lk.ijse.gdse.footwear.model.CustomerModel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,12 +36,6 @@ public class CustomerController implements Initializable {
 
     @FXML
     private Button btnDelete;
-
-    @FXML
-    private Button btnGenerateAllReport;
-
-    @FXML
-    private Button btnOrderReport;
 
     @FXML
     private Button btnReset;
@@ -267,22 +268,44 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnGenarateAllReportOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnOrderReportOnAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void btnResetOnAction(ActionEvent event) throws SQLException {
         refreshPage();
     }
 
     @FXML
     void btnSendMailOnAction(ActionEvent event) {
+        CustomerTM selectedItem = tblCustomer.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            new Alert(Alert.AlertType.WARNING, "Please select customer..!");
+            return;
+        }
+
+        try {
+            // Load the mail dialog from FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Sendmail.fxml"));
+            Parent load = loader.load();
+
+            SendMailController sendMailController = loader.getController();
+
+            String email = selectedItem.getEmail();
+            sendMailController.setCustomerEmail(email);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(load));
+            stage.setTitle("Send email");
+           // stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/mail_icon.png")));
+
+            // Set window as modal
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            Window underWindow = btnUpdate.getScene().getWindow();
+            stage.initOwner(underWindow);
+
+            stage.show();
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Fail to load ui..!");
+            e.printStackTrace();
+        }
 
     }
 

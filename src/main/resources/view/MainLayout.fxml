@@ -11,129 +11,48 @@
 
 <AnchorPane fx:id="MainLayout" prefHeight="800.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.footwear.controller.MainLayoutController">
    <children>
-      <AnchorPane prefHeight="800.0" prefWidth="371.0" style="-fx-background-color: #ff7043;">
+      <AnchorPane fx:id="content" layoutX="373.0" prefHeight="800.0" prefWidth="879.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Pane fx:id="Dashboard" prefHeight="800.0" prefWidth="359.0" style="-fx-background-color: #1a355d; -fx-border-color: black; -fx-border-width: 2px;">
-               <children>
-                  <Label fx:id="lblHome" ellipsisString="" layoutX="80.0" layoutY="11.0" prefHeight="76.0" prefWidth="200.0" text="Home" textFill="#f5f3f3">
-                     <font>
-                        <Font name="Calibri Bold" size="65.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btnCustomer" layoutX="68.0" layoutY="149.0" mnemonicParsing="false" onAction="#navigateCustomerOnAction" prefHeight="62.0" prefWidth="243.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px;" text="    Customer" textFill="#1e0202">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="30.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <Button fx:id="btnProduct" layoutX="65.0" layoutY="258.0" mnemonicParsing="false" onAction="#navigateProductOnAction" prefHeight="62.0" prefWidth="243.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px;" text="   Product" textFill="#1e0202">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnOrders" layoutX="65.0" layoutY="369.0" mnemonicParsing="false" onAction="#navigateOrdersOnAction" prefHeight="62.0" prefWidth="243.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px;" text="  Orders" textFill="#1e0202">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnSupplier" layoutX="65.0" layoutY="478.0" mnemonicParsing="false" onAction="#navigateSupplierOnAction" prefHeight="62.0" prefWidth="243.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px;" text="   Supplier" textFill="#1e0202">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="btnEmployee" layoutX="65.0" layoutY="587.0" mnemonicParsing="false" onAction="#navigateEmployeeOnAction" prefHeight="62.0" prefWidth="243.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px;" text="    Employee" textFill="#1e0202">
-                     <font>
-                        <Font name="Comic Sans MS Bold" size="30.0" />
-                     </font>
-                  </Button>
-                  <ImageView layoutX="14.0" layoutY="17.0">
-                     <image>
-                        <Image url="@../images/icons8-xbox-menu-64.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="49.0" layoutX="89.0" layoutY="155.0">
-                     <image>
-                        <Image url="@../images/img_4.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="51.0" layoutX="88.0" layoutY="264.0">
-                     <image>
-                        <Image url="@../images/img_6.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="50.0" layoutX="85.0" layoutY="484.0">
-                     <image>
-                        <Image url="@../images/img_9.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="53.0" layoutX="88.0" layoutY="375.0">
-                     <image>
-                        <Image url="@../images/img_7.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="51.0" fitWidth="53.0" layoutX="84.0" layoutY="593.0">
-                     <image>
-                        <Image url="@../images/img_10.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="content" layoutX="371.0" prefHeight="800.0" prefWidth="879.0" style="-fx-background-color: #e0f7fa; -fx-border-color: black; -fx-border-width: 2px;">
-         <children>
-            <Button fx:id="btnLogOut" layoutX="722.0" layoutY="728.0" mnemonicParsing="false" onMouseClicked="#onClickedLogOut" prefHeight="58.0" prefWidth="147.0" style="-fx-background-color: #ff7043; -fx-background-radius: 30px;" text="      Log Out">
+            <Label layoutX="23.0" layoutY="19.0" text="Date    :" textFill="#1a355d">
                <font>
-                  <Font name="Calibri Bold" size="24.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="44.0" fitWidth="42.0" layoutX="728.0" layoutY="735.0">
-               <image>
-                  <Image url="@../images/icons8-logout-rounded-50.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="219.0" layoutY="20.0" text="Date    :" textFill="#1a355d">
-               <font>
-                  <Font name="Calibri Bold" size="30.0" />
+                  <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
-            <Label layoutX="463.0" layoutY="21.0" text="Time    :" textFill="#1a355d">
+            <Label layoutX="342.0" layoutY="21.0" text="Time    :" textFill="#1a355d">
                <font>
-                  <Font name="Calibri Bold" size="30.0" />
+                  <Font name="Rockwell" size="30.0" />
                </font>
             </Label>
-            <Button fx:id="btnSetting" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnSettingOnAction" prefHeight="35.0" prefWidth="144.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px; -fx-padding: 2px;" text="        Settings">
+            <Button fx:id="btnSetting" layoutX="721.0" layoutY="19.0" mnemonicParsing="false" onAction="#btnSettingOnAction" prefHeight="35.0" prefWidth="144.0" style="-fx-background-color: #81d4fa; -fx-background-radius: 30px; -fx-padding: 2px;" text="        Settings">
                <font>
-                  <Font name="Calibri Bold" size="24.0" />
+                  <Font name="Rockwell" size="24.0" />
                </font>
             </Button>
-            <ImageView fitHeight="32.0" fitWidth="28.0" layoutX="26.0" layoutY="20.0">
+            <ImageView fitHeight="32.0" fitWidth="28.0" layoutX="735.0" layoutY="22.0">
                <image>
                   <Image url="@../images/icons8-settings-96.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblDate" layoutX="325.0" layoutY="24.0" text="date">
+            <Label fx:id="lblDate" layoutX="136.0" layoutY="26.0" text="date">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="lblTime" layoutX="571.0" layoutY="25.0" text="time">
+            <Label fx:id="lblTime" layoutX="457.0" layoutY="26.0" text="time">
                <font>
                   <Font name="Calibri" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="23.0" layoutY="125.0" text="Hello  Welcome !" textFill="#1a355d">
+            <Label layoutX="24.0" layoutY="130.0" text="Hello  Welcome !" textFill="#1a355d">
                <font>
-                  <Font name="Calibri Bold" size="55.0" />
+                  <Font name="Rockwell" size="55.0" />
                </font>
             </Label>
-            <Pane layoutX="35.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: #FFE5B4; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
+            <Pane layoutX="43.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: linear-gradient(to right bottom, #3C9CD5, #f5f5f5); -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
                <children>
-                  <ImageView fitHeight="174.0" fitWidth="169.0" layoutX="31.0" layoutY="14.0">
+                  <ImageView fitHeight="175.0" fitWidth="169.0" layoutX="30.0" layoutY="14.0">
                      <image>
-                        <Image url="@../images/img_2.png" />
+                        <Image url="@../images/img.png" />
                      </image>
                   </ImageView>
                   <Label layoutX="49.0" layoutY="203.0" text="Customers">
@@ -141,62 +60,146 @@
                         <Font name="Calibri Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCustomerCount" layoutX="101.0" layoutY="260.0" text="1">
+                  <Label fx:id="lblCustomerCount" layoutX="106.0" layoutY="298.0" text="1">
                      <font>
                         <Font name="Calibri Bold" size="35.0" />
                      </font>
                   </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="325.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: #FFE5B4; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
-               <children>
-                  <ImageView fitHeight="174.0" fitWidth="200.0" layoutX="15.0" layoutY="14.0">
+                  <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="76.0" layoutY="280.0">
                      <image>
-                        <Image url="@../images/img_1.png" />
+                        <Image url="@../images/icons8-circle-100%20(1).png" />
                      </image>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="325.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: linear-gradient(to right bottom, #3C9CD5, #f5f5f5); -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
+               <children>
                   <Label layoutX="20.0" layoutY="203.0" text="Product Orders">
                      <font>
                         <Font name="Calibri Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblOrdersCount" layoutX="106.0" layoutY="260.0" text="0">
+                  <Label fx:id="lblOrdersCount" layoutX="106.0" layoutY="297.0" text="0">
                      <font>
                         <Font name="Calibri Bold" size="35.0" />
                      </font>
                   </Label>
-               </children>
-            </Pane>
-            <Pane layoutX="609.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: #FFE5B4; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
-               <children>
-                  <ImageView fitHeight="174.0" fitWidth="174.0" layoutX="28.0" layoutY="14.0">
+                  <ImageView fitHeight="175.0" fitWidth="200.0" layoutX="22.0" layoutY="14.0">
                      <image>
-                        <Image url="@../images/img_3.png" />
+                        <Image url="@../images/img_4.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="76.0" layoutY="279.0">
+                     <image>
+                        <Image url="@../images/icons8-circle-100%20(1).png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="609.0" layoutY="247.0" prefHeight="406.0" prefWidth="230.0" style="-fx-background-color: linear-gradient(to right bottom, #3C9CD5, #f5f5f5); -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px; -fx-border-width: 2px;">
+               <children>
                   <Label layoutX="60.0" layoutY="203.0" text="Products">
                      <font>
                         <Font name="Calibri Bold" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblProductsCount" layoutX="102.0" layoutY="260.0" text="1">
+                  <Label fx:id="lblProductsCount" layoutX="115.0" layoutY="295.0" text="1">
                      <font>
                         <Font name="Calibri Bold" size="35.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="154.0" fitWidth="155.0" layoutX="46.0" layoutY="35.0">
+                     <image>
+                        <Image url="@../images/img_2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="77.0" fitWidth="77.0" layoutX="85.0" layoutY="277.0">
+                     <image>
+                        <Image url="@../images/icons8-circle-100%20(1).png" />
+                     </image>
+                  </ImageView>
                </children>
             </Pane>
-            <Label fx:id="lblUserName" layoutX="773.0" layoutY="22.0" text="user">
+            <Pane layoutY="-1.0" prefHeight="3.0" prefWidth="879.0" style="-fx-background-color: #000000;" />
+         </children></AnchorPane>
+      <Pane fx:id="Dashboard" prefHeight="800.0" prefWidth="373.0" style="-fx-background-color: #1a355d;">
+         <children>
+            <Button fx:id="btnCustomer" layoutX="63.0" layoutY="172.0" mnemonicParsing="false" onAction="#navigateCustomerOnAction" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #1a355d; -fx-background-radius: 30px;" text="  Customer" textFill="WHITE">
                <font>
-                  <Font name="Calibri Bold" size="24.0" />
+                  <Font name="Comic Sans MS Bold" size="30.0" />
                </font>
-            </Label>
-            <AnchorPane layoutX="736.0" layoutY="55.0" prefHeight="1.0" prefWidth="120.0" style="-fx-background-color: black;" />
-            <ImageView fitHeight="41.0" fitWidth="40.0" layoutX="726.0" layoutY="15.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnProduct" layoutX="63.0" layoutY="279.0" mnemonicParsing="false" onAction="#navigateProductOnAction" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #1a355d; -fx-background-radius: 30px;" text=" Product" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnOrders" layoutX="63.0" layoutY="385.0" mnemonicParsing="false" onAction="#navigateOrdersOnAction" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #1a355d; -fx-background-radius: 30px;" text="Orders" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnSupplier" layoutX="63.0" layoutY="491.0" mnemonicParsing="false" onAction="#navigateSupplierOnAction" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #1a355d; -fx-background-radius: 30px;" text=" Supplier" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="30.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnEmployee" layoutX="65.0" layoutY="598.0" mnemonicParsing="false" onAction="#navigateEmployeeOnAction" prefHeight="77.0" prefWidth="243.0" style="-fx-background-color: #1a355d; -fx-background-radius: 30px;" text="  Employee" textFill="WHITE">
+               <font>
+                  <Font name="Comic Sans MS Bold" size="30.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="41.0" fitWidth="46.0" layoutX="81.0" layoutY="403.0">
                <image>
-                  <Image url="@../images/img_11.png" />
+                  <Image url="@../images/icons8-manage-64.png" />
                </image>
             </ImageView>
-         </children></AnchorPane>
+            <Label fx:id="lblUserName" layoutX="153.0" layoutY="41.0" text="user" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="35.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="40.0" layoutX="83.0" layoutY="193.0">
+               <image>
+                  <Image url="@../images/icons8-customer-64%20(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="83.0" layoutY="297.0">
+               <image>
+                  <Image url="@../images/icons8-box-50.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="41.0" fitWidth="47.0" layoutX="80.0" layoutY="509.0">
+               <image>
+                  <Image url="@../images/icons8-supplier-50.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="41.0" fitWidth="43.0" layoutX="82.0" layoutY="616.0">
+               <image>
+                  <Image url="@../images/icons8-employee-48.png" />
+               </image>
+            </ImageView>
+            <AnchorPane layoutY="142.0" prefHeight="5.0" prefWidth="373.0" style="-fx-background-color: #000;" />
+            <ImageView layoutX="72.0" layoutY="30.0">
+               <image>
+                  <Image url="@../images/icons8-user-64.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnLogOut" layoutX="111.0" layoutY="735.0" mnemonicParsing="false" onMouseClicked="#onClickedLogOut" prefHeight="44.0" prefWidth="147.0" style="-fx-background-color: #ff7043; -fx-background-radius: 30px;" text="      Log Out">
+               <font>
+                  <Font name="Rockwell Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="115.0" layoutY="740.0">
+               <image>
+                  <Image url="@../images/icons8-logout-rounded-50.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="371.0" layoutY="2.0" prefHeight="800.0" prefWidth="3.0" style="-fx-background-color: #000000;" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

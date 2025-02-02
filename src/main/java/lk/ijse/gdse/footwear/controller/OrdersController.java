@@ -8,15 +8,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.*;
 import lk.ijse.gdse.footwear.dto.tm.CartTM;
 import lk.ijse.gdse.footwear.model.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class OrdersController  implements Initializable {
@@ -83,6 +92,9 @@ public class OrdersController  implements Initializable {
 
     @FXML
     private TextField txtAddToCart;
+
+    @FXML
+    private Button btnBill;
 
     @FXML
     private TextField txtDiscount;
@@ -390,29 +402,112 @@ public class OrdersController  implements Initializable {
 
 
         OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
-        boolean isOrderDetailsSaved = orderDetailsModel.saveOrderDetailsList(orderDetailsDTOS);
         boolean isOrderSaved = orderModel.saveOrderWithPayment(placeOrderDTO,paymentDTO);
+        boolean isOrderDetailsSaved = orderDetailsModel.saveOrderDetailsList(orderDetailsDTOS);
 
-        if (isOrderDetailsSaved && isOrderSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Order successfully added..!").show();
+        if (isOrderSaved && isOrderDetailsSaved ) {
+            new Alert(Alert.AlertType.INFORMATION, "Order and Order details successfully added..!").show();
             refreshPage();
         }else {
             new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
         }
-
-
-      /*  boolean isUpdated = orderDetailsModel.saveOrderDetailsWithStockUpdate(orderDetailsDTOS);
-        if (isUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Order updated successfully!").show();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Order update failed!").show();
-        } */
     }
+
+    @FXML
+    void btnBillOnAction(ActionEvent event) {
+        try {
+                // Load Jasper Report Design
+                InputStream reportStream = getClass().getResourceAsStream("/Report/Receipt.jrxml");
+                if (reportStream == null) {
+                    new Alert(Alert.AlertType.ERROR, "Report file not found!").show();
+                    return;
+                }
+                JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+                // Check if an order is selected
+                if (tblCart.getSelectionModel().getSelectedItem() == null) {
+                    new Alert(Alert.AlertType.WARNING, "Please select an order first!").show();
+                    return;
+                }
+
+                // Get Selected Order ID
+                Object selectedOrderId = tblCart.getSelectionModel().getSelectedItem().getOrderId();
+
+                // Pass Parameters to the Report
+                Map<String, Object> parameters = new HashMap<>();
+                parameters.put("order_id", selectedOrderId);
+
+                // Get Database Connection
+                try (Connection connection = DBConnection.getInstance().getConnection()) {
+                    // Fill Report
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(
+                            jasperReport,
+                            parameters,
+                            connection
+                    );
+
+                    // View the Report
+                    JasperViewer viewer = new JasperViewer(jasperPrint, false);
+                    viewer.setVisible(true);
+
+                }
+
+            } catch (JRException e) {
+                new Alert(Alert.AlertType.ERROR, "Error generating bill report: " + e.getMessage()).show();
+                e.printStackTrace();
+            } catch (SQLException e) {
+                new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+                e.printStackTrace();
+            } catch (Exception e) {
+                new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+                e.printStackTrace();
+            }
+        }
+
+
+
+  /*  @FXML
+    void btnBillOnAction(ActionEvent event) {
+        try {
+            // Load Jasper Report Design from the .jrxml file
+            JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/Report/Receipt.jrxml");
+
+            // Compile the Jasper report into a report object
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+            // Prepare data to pass to the report, using a Map to store the report parameters
+            Map<String, Object> data = new HashMap<>();
+            data.put("Order", lblOrderId.getText()); // Put the order ID value from a label into the report data
+            System.out.println(data); // For debugging: prints the data map to console
+
+            // Fill the report with data from the database
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, data, DBConnection.getInstance().getConnection());
+
+            // Optionally view the report (commented out)
+            // JasperViewer.viewReport(jasperPrint, true);
+
+            // Send the report directly to the printer
+            JasperPrintManager.printReport(jasperPrint, true);
+
+        } catch (NullPointerException e) {
+            // Show an alert if an order is not selected
+            new Alert(Alert.AlertType.WARNING, "Please select an order first!").show();
+        } catch (JRException e) {
+            // Show an alert if there is an error generating the report
+            new Alert(Alert.AlertType.ERROR, "Error generating bill report...!").show();
+        } catch (SQLException e) {
+            // Show an alert if there is a database connection error
+            new Alert(Alert.AlertType.ERROR, "Database connection error...!").show();
+        }
+    } */
+
 
     @FXML
     void btnResetOnAction(ActionEvent actionEvent) throws SQLException {
         refreshPage();
     }
+
+
 }
 
 

@@ -1,3 +1,41 @@
-.content{
-    -fx-background-color: linear-gradient(to bottom right, #31ecfd,  #6195ca);
+#card {
+    -fx-background-color: #062e8c;
+}
+
+.table-view{
+    -fx-font-size: 16px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #DBEEFF; /* Light green for odd rows */
+}
+
+.table-row-cell:even {
+    -fx-background-color: #ffffff; /* White for even rows */
+}
+
+.table-column-header-background {
+    -fx-background-color:  #70CAE5; /* Green color for header */
+    -fx-font-size: 16px;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color:  #A6D4F2;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:selected, .table-cell:selected {
+    -fx-background-color: #A0D2F4;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.table-view .table-cell {
+    -fx-alignment: CENTER; /* Center alignment for all cells */
+    -fx-font-size: 14px;
+}
+
+.table-row-cell {
+    -fx-text-fill: black; /* Default text color for rows */
 }

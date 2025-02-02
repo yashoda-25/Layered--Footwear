@@ -241,6 +241,8 @@ public class MainLayoutController implements Initializable {
         navigateTo("/view/SupplierView.fxml");
     }
 
+
+
     @FXML
     void onClickedLogOut(MouseEvent mouseEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));

@@ -48,49 +48,44 @@
             <Font name="Calibri" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtName" layoutX="173.0" layoutY="129.0" onAction="#txtNameOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtNic" layoutX="173.0" layoutY="171.0" onAction="#txtNicOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtAddress" layoutX="173.0" layoutY="216.0" onAction="#txtAddressOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtEmail" layoutX="173.0" layoutY="262.0" onAction="#txtEmailOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtPhoneNo" layoutX="173.0" layoutY="309.0" onAction="#txtPhoneNoOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <Button fx:id="btnReset" layoutX="704.0" layoutY="119.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="      Reset">
+      <TextField fx:id="txtName" layoutX="173.0" layoutY="129.0" onAction="#txtNameOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtNic" layoutX="173.0" layoutY="171.0" onAction="#txtNicOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtAddress" layoutX="173.0" layoutY="216.0" onAction="#txtAddressOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtEmail" layoutX="173.0" layoutY="262.0" onAction="#txtEmailOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtPhoneNo" layoutX="173.0" layoutY="309.0" onAction="#txtPhoneNoOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <Button fx:id="btnReset" layoutX="704.0" layoutY="119.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="      Reset">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnDelete" layoutX="704.0" layoutY="181.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Delete">
+      <Button fx:id="btnDelete" layoutX="704.0" layoutY="181.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Delete">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnUpdate" layoutX="704.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Update">
+      <Button fx:id="btnUpdate" layoutX="704.0" layoutY="241.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Update">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnSave" layoutX="704.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="  Save">
+      <Button fx:id="btnSave" layoutX="704.0" layoutY="305.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="  Save">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnGenerateAllReport" layoutX="530.0" layoutY="365.0" mnemonicParsing="false" onAction="#btnGenerateAllReport" prefHeight="43.0" prefWidth="323.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="        Generate All Supplier Report">
-         <font>
-            <Font name="Calibri Bold" size="20.0" />
-         </font>
-      </Button>
-      <TableView fx:id="tblSupplier" layoutX="9.0" layoutY="468.0" onMouseClicked="#onClickedTable" prefHeight="256.0" prefWidth="861.0">
+      <TableView fx:id="tblSupplier" layoutX="24.0" layoutY="429.0" onMouseClicked="#onClickedTable" prefHeight="256.0" prefWidth="832.0" stylesheets="@Style/Style.css">
         <columns>
-          <TableColumn fx:id="colSupplierId" prefWidth="112.0" text="Supplier Id" />
-          <TableColumn fx:id="colName" prefWidth="144.0" text="Name" />
-            <TableColumn fx:id="colNic" prefWidth="155.0" text="NIC" />
-            <TableColumn fx:id="colAddress" prefWidth="155.0" text="Address" />
-            <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="149.0" text="Email" />
-            <TableColumn fx:id="colPhoneNo" prefWidth="145.0" text="Phone No" />
+          <TableColumn fx:id="colSupplierId" prefWidth="108.0" text="Supplier Id" />
+          <TableColumn fx:id="colName" prefWidth="147.0" text="Name" />
+            <TableColumn fx:id="colNic" prefWidth="132.0" text="NIC" />
+            <TableColumn fx:id="colAddress" prefWidth="144.0" text="Address" />
+            <TableColumn fx:id="colEmail" minWidth="0.0" prefWidth="161.0" text="Email" />
+            <TableColumn fx:id="colPhoneNo" prefWidth="138.0" text="Phone No" />
         </columns>
       </TableView>
-      <Pane prefHeight="60.0" prefWidth="879.0" style="-fx-background-color: #1a355d;">
+      <Pane prefHeight="60.0" prefWidth="879.0" style="-fx-background-color: #0A2344; -fx-border-color: #A6D4F2; -fx-border-width: 5px;">
          <children>
-            <Label fx:id="lblTitleSupplier" layoutX="287.0" layoutY="10.0" text="Supplier Manage" textFill="#e0f7fa">
+            <Label fx:id="lblTitleSupplier" layoutX="287.0" layoutY="10.0" text="Supplier Manage" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="35.0" />
                </font>
@@ -115,11 +110,6 @@
       <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="722.0" layoutY="309.0">
          <image>
             <Image url="@../images/icons8-save-48.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="35.0" fitWidth="38.0" layoutX="548.0" layoutY="369.0">
-         <image>
-            <Image url="@../images/icons8-graph-report-48.png" />
          </image>
       </ImageView>
       <Label layoutX="144.0" layoutY="94.0" text=":">

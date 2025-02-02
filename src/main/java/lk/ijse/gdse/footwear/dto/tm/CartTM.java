@@ -20,4 +20,7 @@ public class CartTM {
    private Button removeBtn;
 
 
+   public Object getOrderId() {
+      return productId;
+   }
 }

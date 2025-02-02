@@ -20,7 +20,7 @@ public class AppInitializer extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setScene(new Scene(FXMLLoader.load(this.getClass().getResource("/view/LoginForm.fxml"))));
-        stage.setTitle("Login Page");
+        stage.setTitle("ELITE FootWear Management System");
         stage.centerOnScreen();
         stage.setResizable(false);
         stage.show();

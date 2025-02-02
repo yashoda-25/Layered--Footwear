@@ -9,19 +9,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.footwear.controller.SendMailController">
+<AnchorPane prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to right bottom, #CFE5F2, #8dc1ff);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.gdse.footwear.controller.SendMailController">
    <children>
       <Label layoutX="223.0" layoutY="14.0" text="Send Mail" textFill="#0d468c">
          <font>
             <Font name="Georgia Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="txtSubject" layoutX="24.0" layoutY="82.0" onAction="#txtSubjectOnAction" prefHeight="45.0" prefWidth="545.0" promptText="subject" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;">
+      <TextField fx:id="txtSubject" layoutX="28.0" layoutY="114.0" onAction="#txtSubjectOnAction" prefHeight="45.0" prefWidth="545.0" promptText="subject" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </TextField>
-      <TextArea fx:id="txtBody" layoutX="24.0" layoutY="138.0" onDragDetected="#txtBodyOnAction" prefHeight="250.0" prefWidth="545.0" promptText="body" style="-fx-border-color: #7367F0;">
+      <TextArea fx:id="txtBody" layoutX="28.0" layoutY="192.0" onDragDetected="#txtBodyOnAction" prefHeight="182.0" prefWidth="545.0" promptText="body" style="-fx-border-color: #7367F0;">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>

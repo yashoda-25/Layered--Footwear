@@ -61,9 +61,6 @@ public class ProductController implements Initializable {
     private TableView<ProductTM> tblProduct;
 
     @FXML
-    private TableColumn<ProductTM, String> colInventoryDesc;
-
-    @FXML
     private TextField txtPrice;
 
     @FXML
@@ -71,9 +68,6 @@ public class ProductController implements Initializable {
 
     @FXML
     private TextField txtQuantity;
-
-    @FXML
-    private TextField txtInventoryDesc;
 
     ProductModel productModel = new ProductModel();
   //  InventoryModel inventoryModel = new InventoryModel();
@@ -170,7 +164,7 @@ public class ProductController implements Initializable {
     @FXML
     void btnSaveOnAction(ActionEvent event) throws SQLException {
 
-        if (txtQuantity.getText().isEmpty() || txtPrice.getText().isEmpty() || txtInventoryDesc.getText().isEmpty()){
+        if (txtQuantity.getText().isEmpty() || txtPrice.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Please fill all the fields. ").show();
             return;
         }
@@ -260,7 +254,7 @@ public class ProductController implements Initializable {
 
     @FXML
     void txtPriceOnAction(ActionEvent event) {
-        txtInventoryDesc.requestFocus();
+
     }
 
     @FXML
@@ -271,11 +265,6 @@ public class ProductController implements Initializable {
     @FXML
     void txtProductDescOnAction(ActionEvent event) {
         txtQuantity.requestFocus();
-    }
-
-    @FXML
-    void txtInventoryDesc(ActionEvent event) {
-
     }
 
 

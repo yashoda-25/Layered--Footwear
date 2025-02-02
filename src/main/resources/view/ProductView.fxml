@@ -38,41 +38,40 @@
             <Font name="Calibri" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txtProductDescription" layoutX="274.0" layoutY="138.0" onAction="#txtProductDescOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtQuantity" layoutX="274.0" layoutY="181.0" onAction="#txtQuantityOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <TextField fx:id="txtPrice" layoutX="274.0" layoutY="225.0" onAction="#txtPriceOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
-      <Button fx:id="btnReset" layoutX="712.0" layoutY="117.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="      Reset">
+      <TextField fx:id="txtProductDescription" layoutX="274.0" layoutY="138.0" onAction="#txtProductDescOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtQuantity" layoutX="274.0" layoutY="181.0" onAction="#txtQuantityOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <TextField fx:id="txtPrice" layoutX="274.0" layoutY="225.0" onAction="#txtPriceOnAction" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #F1E8E8; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
+      <Button fx:id="btnReset" layoutX="712.0" layoutY="117.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="      Reset">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnDelete" layoutX="712.0" layoutY="177.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Delete">
+      <Button fx:id="btnDelete" layoutX="712.0" layoutY="177.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Delete">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnUpdate" layoutX="712.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Update">
+      <Button fx:id="btnUpdate" layoutX="712.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="       Update">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="btnSave" layoutX="712.0" layoutY="298.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #0288d1; -fx-background-radius: 30px; -fx-padding: 10px;" text="   Save">
+      <Button fx:id="btnSave" layoutX="712.0" layoutY="298.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="43.0" prefWidth="145.0" style="-fx-background-color: #6FA8DC; -fx-background-radius: 30px; -fx-padding: 10px;" text="   Save">
          <font>
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Button>
-      <TableView fx:id="tblProduct" layoutX="18.0" layoutY="392.0" onMouseClicked="#onClickedTable" prefHeight="299.0" prefWidth="843.0">
+      <TableView fx:id="tblProduct" layoutX="115.0" layoutY="376.0" onMouseClicked="#onClickedTable" prefHeight="299.0" prefWidth="650.0" stylesheets="@Style/Style.css">
         <columns>
           <TableColumn fx:id="colProductId" prefWidth="127.0" text="Product Id" />
-          <TableColumn fx:id="colProductDescription" prefWidth="203.0" text="Product Description" />
-            <TableColumn fx:id="colQuantity" prefWidth="153.0" text="Quantity" />
-            <TableColumn fx:id="colPrice" prefWidth="169.0" text="Price" />
-            <TableColumn fx:id="colInventoryDesc" prefWidth="190.0" text="Inventory Description" />
+          <TableColumn fx:id="colProductDescription" prefWidth="211.0" text="Product Description" />
+            <TableColumn fx:id="colQuantity" prefWidth="129.0" text="Quantity" />
+            <TableColumn fx:id="colPrice" prefWidth="182.0" text="Price" />
         </columns>
       </TableView>
-      <Pane layoutY="-2.0" prefHeight="60.0" prefWidth="879.0" style="-fx-background-color: #1a355d;">
+      <Pane layoutY="-2.0" prefHeight="60.0" prefWidth="879.0" style="-fx-background-color: #0A2344; -fx-border-color: #A6D4F2; -fx-border-width: 5px;">
          <children>
-            <Label fx:id="lblTitleProduct" layoutX="292.0" layoutY="10.0" text="Product Manage" textFill="#e0f7fa">
+            <Label fx:id="lblTitleProduct" layoutX="292.0" layoutY="10.0" text="Product Manage" textFill="WHITE">
                <font>
                   <Font name="Georgia Bold" size="35.0" />
                </font>
@@ -114,17 +113,6 @@
             <Font name="Comic Sans MS Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="246.0" layoutY="275.0" text=":">
-         <font>
-            <Font name="Comic Sans MS Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="35.0" layoutY="274.0" text="Inventory description">
-         <font>
-            <Font name="Comic Sans MS" size="20.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtInventoryDesc" layoutX="274.0" layoutY="271.0" onAction="#txtInventoryDesc" prefHeight="35.0" prefWidth="357.0" style="-fx-background-color: #fff; -fx-border-color: #7367F0; -fx-border-width: 0 0 1px 0;" />
       <Label layoutX="246.0" layoutY="229.0" text=":">
          <font>
             <Font name="Comic Sans MS Bold" size="20.0" />

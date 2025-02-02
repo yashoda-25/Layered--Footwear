@@ -18,7 +18,11 @@ public class DBConnection {
         return dbConnection;
     }
 
-     public Connection getConnection() {
+    public static DBConnection getDbConnection() throws SQLException {
+        return dbConnection == null ? dbConnection = new DBConnection() : dbConnection;
+    }
+
+    public Connection getConnection() {
         return connection;
      }
 

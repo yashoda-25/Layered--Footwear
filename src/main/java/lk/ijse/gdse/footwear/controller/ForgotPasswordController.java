@@ -108,7 +108,7 @@ public class ForgotPasswordController {
         Scene scene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-        stage.setTitle("Sign In Page");
+        stage.setTitle("ELITE Footwear Management System");
         stage.show();
     }
 
