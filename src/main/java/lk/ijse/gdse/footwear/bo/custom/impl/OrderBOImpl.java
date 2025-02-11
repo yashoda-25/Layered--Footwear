@@ -4,6 +4,7 @@ import lk.ijse.gdse.footwear.bo.custom.OrderBO;
 import lk.ijse.gdse.footwear.dao.DAOFactory;
 import lk.ijse.gdse.footwear.dao.SQLUtil;
 import lk.ijse.gdse.footwear.dao.custom.OrderDAO;
+import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.PaymentDAO;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 
 public class OrderBOImpl implements OrderBO {
 
+    OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
     PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
@@ -27,42 +29,6 @@ public class OrderBOImpl implements OrderBO {
     public String getNextId() throws SQLException, ClassNotFoundException {
         return orderDAO.getNextId();
     }
-
-
-
-   /* @Override
-    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
-        // Calculate the total amount and apply discount
-       /* double totalAmount = 0.0;
-        for (OrderDetailsDTO orderDetail : placeOrderDTO.getOrderDetailsDTOS()) {
-            totalAmount += orderDetail.getPrice() * orderDetail.getQty();
-        }
-
-        // Apply discount to the total amount
-        double discountedTotal = totalAmount * (1 - paymentDTO.getDiscount() / 100);
-
-        // Update the paymentDTO with the correct amount and discounted total
-        paymentDTO.setAmount(totalAmount);
-        paymentDTO.setDiscount(paymentDTO.getDiscount());
-        paymentDTO.setPaymentMethod(paymentDTO.getPaymentMethod());
-
-        PlaceOrder placeOrder = new PlaceOrder(
-            placeOrderDTO.getOrderId(),
-            placeOrderDTO.getCustomerId(),
-            placeOrderDTO.getOrderDate(),
-            placeOrderDTO.getOrderDetailsDTOS()
-        );
-
-        Payment payment = new Payment(
-                paymentDTO.getPaymentID(),
-                paymentDTO.getAmount(),
-                paymentDTO.getDiscount(),
-                paymentDTO.getPaymentMethod(),
-                paymentDTO.getDate(),
-                paymentDTO.getOrderID()
-        );
-        return orderDAO.saveOrderWithPayment(placeOrderDTO,paymentDTO);
-    }*/
 
     @Override
     public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
@@ -73,13 +39,7 @@ public class OrderBOImpl implements OrderBO {
             connection.setAutoCommit(false); // 1
 
             // Save each orders data in the 'orders' table
-            boolean isOrderSaved = SQLUtil.execute(
-                    "INSERT INTO Orders (order_id, customer_id, date) VALUES (?,?,?)",
-                    placeOrderDTO.getOrderId(),
-                    placeOrderDTO.getCustomerId(),
-                    placeOrderDTO.getOrderDate()
-
-            );
+            boolean isOrderSaved = orderDAO.save(placeOrderDTO);
             System.out.println("Order saved: " + isOrderSaved);
 
             if (!isOrderSaved) {
@@ -96,15 +56,7 @@ public class OrderBOImpl implements OrderBO {
 
             // Save each order detail in the 'order_details' table
             for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
-                boolean isOrderDetailsSaved = SQLUtil.execute(
-                        "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?,?,?,?,?,?)",
-                        orderDetailsDTO.getOrderId(),
-                        orderDetailsDTO.getProductId(),
-                        orderDetailsDTO.getProductDescription(),
-                        orderDetailsDTO.getQty(),
-                        orderDetailsDTO.getPrice(),
-                        orderDetailsDTO.getTotal()
-                );
+                boolean isOrderDetailsSaved = orderDetailsDAO.saveOrderDetail(orderDetailsDTO);
                 System.out.println("Order details saved: " + isOrderDetailsSaved);
 
                 if (!isOrderDetailsSaved) {
@@ -132,13 +84,6 @@ public class OrderBOImpl implements OrderBO {
 
     @Override
     public String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
-        //   String productId = ""; // Initialize productId variable
-
-        ResultSet rst = SQLUtil.execute("SELECT product_id FROM products WHERE product_description = ?", selectedProductDesc);
-
-        if (rst.next()) {
-            return rst.getString(1);
-        }
-        return null;
+        return orderDAO.getProductIdByDescription(selectedProductDesc);
     }
 }

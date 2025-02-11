@@ -19,7 +19,7 @@ public class OrderDetailsBOImpl implements OrderDetailsBO {
 
     @Override
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
-        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
+     /*   for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
             if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
                 System.out.println("Error: order_id or product_id is null.");
                 return false;
@@ -38,15 +38,15 @@ public class OrderDetailsBOImpl implements OrderDetailsBO {
                 return false;
             }
         }
-        return true;
-       // return orderDetailsDAO.saveOrderDetailsList(orderDetailsDTOS);
+        return true;*/
+        return orderDetailsDAO.saveOrderDetailsList(orderDetailsDTOS);
 
     }
 
     @Override
     public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
 
-        if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
+      /*  if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
             System.out.println("Error: order_id or product_id is null.");
             return false;
         }

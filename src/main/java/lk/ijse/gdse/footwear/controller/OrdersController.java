@@ -187,7 +187,6 @@ public class OrdersController  implements Initializable {
     @FXML
     void btnAddToCartOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-
         // Inputs
         String qtyPattern = "^[0-9]+$";
         String cartQtyString = txtAddToCart.getText();
@@ -222,13 +221,11 @@ public class OrdersController  implements Initializable {
 
         // Calculate amount and net total
         double amount = unitPrice * cartQty;
-        System.out.println("Amount: " + amount);
         netAmount += amount;
         lblAmount.setText(String.format("%.2f", netAmount));
 
-        // String dis = txtDiscount.getText();
+
         double discount = 0.0; // Default discount
-        //  String discountText = txtDiscount.getText();
         // Parse discount
         try {
             if (!txtDiscount.getText().trim().isEmpty()) {
@@ -252,7 +249,6 @@ public class OrdersController  implements Initializable {
 
         // Apply discount and update netTotal
         netTotal += netAmount * (1 - discount / 100);
-     //   netTotal += amount * (1 - discount / 100);
         lblTotal.setText(String.format("%.2f", netTotal));
         txtDiscount.setText(String.format("%.2f", discount));
 
@@ -263,12 +259,7 @@ public class OrdersController  implements Initializable {
 
             if (cartTM.getProductDesc().equals(selectedProductDesc)) {
                 int updateQty = cartTM.getCartQty() + cartQty;
-              //  double updateTotal = unitPrice * updateQty * (1 - discount / 100);
-
                 cartTM.setCartQty(updateQty);
-              //  cartTM.setTotal(updateTotal);
-
-
                 cartTM.setTotal((unitPrice * updateQty) * (1 - discount / 100));
 
                 tblCart.refresh();
@@ -310,13 +301,8 @@ public class OrdersController  implements Initializable {
         for (CartTM cartTM : cartTMS) {
             totalAmount += cartTM.getTotal();
         }
-            lblTotal.setText(String.format("%.2f", totalAmount));
+        lblTotal.setText(String.format("%.2f", totalAmount));
     }
-
-
-
-
-
 
     @FXML
     void cmbPhoneNoOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
@@ -435,18 +421,17 @@ public class OrdersController  implements Initializable {
                 orderId
         );
 
-      //  Payment payment = new Payment();
-        // Convert PaymentDTO to Payment entity
-      //  Payment payment = convertToPaymentEntity(paymentDTO);
 
         boolean isOrderSaved = orderBO.saveOrderWithPayment(placeOrderDTO,paymentDTO);
-      //  boolean isPaymentSaved = paymentBO.save(paymentDTO);
-        // OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
-
+        if (!isOrderSaved) {
+            System.out.println("Failed to save order or payment.");
+            new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
+            return;
+        }
         boolean isOrderDetailsSaved = orderDetailsBO.saveOrderDetailsList(orderDetailsDTOS);
 
-        if (isOrderSaved && isOrderDetailsSaved ) {
-            new Alert(Alert.AlertType.INFORMATION, "Order and Order details successfully added..!").show();
+        if (isOrderDetailsSaved ) {
+            new Alert(Alert.AlertType.INFORMATION, "Order details successfully added..!").show();
             refreshPage();
         }else {
             new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();

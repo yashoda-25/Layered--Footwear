@@ -1,5 +1,6 @@
 package lk.ijse.gdse.footwear.dao.custom.impl;
 
+import lk.ijse.gdse.footwear.dao.DAOFactory;
 import lk.ijse.gdse.footwear.dao.SQLUtil;
 import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.ProductDAO;
@@ -7,19 +8,19 @@ import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.entity.OrderDetails;
 
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
+    ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
+
     @Override
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
-      /*  for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
+        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
             if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
                 System.out.println("Error: order_id or product_id is null.");
                 return false;
-               // throw new IllegalArgumentException("Error: order_id or product_id cannot be null.");
             }
 
             System.out.println("Processing: " + orderDetailsDTO);
@@ -35,15 +36,37 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
                 return false;
             }
         }
-        return true;*/
+        return true;
+    }
+    @Override
+    public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(OrderDetails entity) throws SQLException, ClassNotFoundException {
         return false;
     }
 
     @Override
-    public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
+    public boolean update(OrderDetails entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
 
-       /* if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
-           // throw new IllegalArgumentException("Error: order_id or product_id is null.");
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return "";
+    }
+
+
+    @Override
+    public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
+        if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
             System.out.println("Error: order_id or product_id is null.");
             return false;
         }
@@ -73,56 +96,11 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
             System.err.println("Unexpected error while saving order details: " + exception.getMessage());
             exception.printStackTrace();
             return false; // Return false if a generic exception occurs
-        }*/
-        String query = "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?, ?, ?, ?, ?, ?)";
-        return SQLUtil.execute(
-                query,
-                orderDetailsDTO.getOrderId(),
-                orderDetailsDTO.getProductId(),
-                orderDetailsDTO.getProductDescription(),
-                orderDetailsDTO.getQty(),
-                orderDetailsDTO.getPrice(),
-                orderDetailsDTO.getTotal()
-        );
-    }
-
-    @Override
-    public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
-        return null;
-    }
-
-    @Override
-    public boolean save(OrderDetails entity) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean update(OrderDetails entity) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public String getNextId() throws SQLException, ClassNotFoundException {
-        return "";
-        /*ResultSet rst = SQLUtil.execute("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");
-
-        if (rst.next()) {
-            String lastId = rst.getString(1);
-            System.out.println("Order id retrieved: " + lastId);
-
-            String substring = lastId.substring(1);
-            int i = Integer.parseInt(substring);
-            int newIdIndex = i + 1;
-            System.out.println("New order id: " + newIdIndex);
-
-            return String.format("O%03d", newIdIndex);
         }
-        System.out.println("No existing Order IDs, returning O001");
-        return "O001";*/
     }
+
+
+
+
+
 }
