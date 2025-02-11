@@ -7,7 +7,7 @@ import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.ProductDAO;
 import lk.ijse.gdse.footwear.dao.custom.impl.OrderDetailsDAOImpl;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;

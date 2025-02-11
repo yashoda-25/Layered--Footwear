@@ -4,7 +4,7 @@ import lk.ijse.gdse.footwear.dao.SQLUtil;
 import lk.ijse.gdse.footwear.dao.custom.SupplierDAO;
 import lk.ijse.gdse.footwear.dto.SupplierDTO;
 import lk.ijse.gdse.footwear.entity.Supplier;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

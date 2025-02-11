@@ -11,7 +11,7 @@ import lk.ijse.gdse.footwear.dto.PaymentDTO;
 import lk.ijse.gdse.footwear.dto.PlaceOrderDTO;
 import lk.ijse.gdse.footwear.entity.PlaceOrder;
 import lk.ijse.gdse.footwear.entity.Payment;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -73,7 +73,7 @@ public class OrderBOImpl implements OrderBO {
             connection.setAutoCommit(false); // 1
 
             // Save each orders data in the 'orders' table
-            boolean isOrderSaved = CrudUtil.execute(
+            boolean isOrderSaved = SQLUtil.execute(
                     "INSERT INTO Orders (order_id, customer_id, date) VALUES (?,?,?)",
                     placeOrderDTO.getOrderId(),
                     placeOrderDTO.getCustomerId(),
@@ -96,7 +96,7 @@ public class OrderBOImpl implements OrderBO {
 
             // Save each order detail in the 'order_details' table
             for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
-                boolean isOrderDetailsSaved = CrudUtil.execute(
+                boolean isOrderDetailsSaved = SQLUtil.execute(
                         "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?,?,?,?,?,?)",
                         orderDetailsDTO.getOrderId(),
                         orderDetailsDTO.getProductId(),

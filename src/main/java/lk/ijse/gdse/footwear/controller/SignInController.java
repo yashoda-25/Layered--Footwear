@@ -18,7 +18,7 @@ import lk.ijse.gdse.footwear.dao.custom.UserDAO;
 import lk.ijse.gdse.footwear.dao.custom.impl.UserDAOImpl;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.UserDTO;
-import lk.ijse.gdse.footwear.model.UserModel;
+
 
 import java.io.IOException;
 import java.sql.Connection;

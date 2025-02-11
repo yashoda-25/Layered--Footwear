@@ -3,7 +3,7 @@ package lk.ijse.gdse.footwear.dao.custom;
 import lk.ijse.gdse.footwear.dao.CrudDAO;
 import lk.ijse.gdse.footwear.dto.EmployeeDTO;
 import lk.ijse.gdse.footwear.entity.Employee;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

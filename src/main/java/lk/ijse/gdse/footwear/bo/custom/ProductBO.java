@@ -3,7 +3,7 @@ package lk.ijse.gdse.footwear.bo.custom;
 import lk.ijse.gdse.footwear.bo.SuperBO;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.ProductDTO;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -4,7 +4,7 @@ import lk.ijse.gdse.footwear.dao.CrudDAO;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.ProductDTO;
 import lk.ijse.gdse.footwear.entity.Product;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

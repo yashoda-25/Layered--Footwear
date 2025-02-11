@@ -15,7 +15,7 @@ import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.*;
 import lk.ijse.gdse.footwear.dto.tm.CartTM;
 import lk.ijse.gdse.footwear.entity.Payment;
-import lk.ijse.gdse.footwear.model.*;
+
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;

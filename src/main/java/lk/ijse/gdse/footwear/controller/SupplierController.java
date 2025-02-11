@@ -13,7 +13,7 @@ import lk.ijse.gdse.footwear.bo.BOFactory;
 import lk.ijse.gdse.footwear.bo.custom.SupplierBO;
 import lk.ijse.gdse.footwear.dto.SupplierDTO;
 import lk.ijse.gdse.footwear.dto.tm.SupplierTM;
-import lk.ijse.gdse.footwear.model.SupplierModel;
+
 
 import java.net.URL;
 import java.sql.SQLException;

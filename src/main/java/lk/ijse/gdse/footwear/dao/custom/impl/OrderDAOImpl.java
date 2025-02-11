@@ -10,7 +10,7 @@ import lk.ijse.gdse.footwear.dto.PaymentDTO;
 import lk.ijse.gdse.footwear.dto.PlaceOrderDTO;
 import lk.ijse.gdse.footwear.entity.PlaceOrder;
 import lk.ijse.gdse.footwear.entity.Payment;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
