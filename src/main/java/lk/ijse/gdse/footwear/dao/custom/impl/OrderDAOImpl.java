@@ -1,32 +1,49 @@
-package lk.ijse.gdse.footwear.model;
+package lk.ijse.gdse.footwear.dao.custom.impl;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import lk.ijse.gdse.footwear.bo.custom.PaymentBO;
 import lk.ijse.gdse.footwear.dao.DAOFactory;
+import lk.ijse.gdse.footwear.dao.SQLUtil;
+import lk.ijse.gdse.footwear.dao.custom.OrderDAO;
 import lk.ijse.gdse.footwear.dao.custom.PaymentDAO;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.PaymentDTO;
 import lk.ijse.gdse.footwear.dto.PlaceOrderDTO;
-import lk.ijse.gdse.footwear.dto.ProductDTO;
+import lk.ijse.gdse.footwear.entity.PlaceOrder;
 import lk.ijse.gdse.footwear.entity.Payment;
 import lk.ijse.gdse.footwear.util.CrudUtil;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderModel {
+public class OrderDAOImpl implements OrderDAO {
 
-   // private final PaymentModel paymentModel = new PaymentModel();
-   // PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
-  //  private final OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
-    /*public String getNextOrderId() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");
+    @Override
+    public ArrayList<PlaceOrderDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(PlaceOrderDTO entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(PlaceOrderDTO entity) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = SQLUtil.execute("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");
 
         if (rst.next()) {
             String lastId = rst.getString(1);
@@ -43,7 +60,10 @@ public class OrderModel {
         return "O001";
     }
 
-    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, Payment payment) throws SQLException {
+
+
+    @Override
+    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         try {
@@ -51,7 +71,7 @@ public class OrderModel {
             connection.setAutoCommit(false); // 1
 
             // Save each orders data in the 'orders' table
-            boolean isOrderSaved = CrudUtil.execute(
+            boolean isOrderSaved = SQLUtil.execute(
                     "INSERT INTO Orders (order_id, customer_id, date) VALUES (?,?,?)",
                     placeOrderDTO.getOrderId(),
                     placeOrderDTO.getCustomerId(),
@@ -65,7 +85,7 @@ public class OrderModel {
                 return false;
             }
 
-            boolean isPaymentSaved = paymentDAO.save(payment);
+            boolean isPaymentSaved = paymentDAO.save(paymentDTO);
             System.out.println("Payment saved: " + isPaymentSaved);
             if (!isPaymentSaved) {
                 connection.rollback();
@@ -74,7 +94,7 @@ public class OrderModel {
 
             // Save each order detail in the 'order_details' table
             for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
-                boolean isOrderDetailsSaved = CrudUtil.execute(
+                boolean isOrderDetailsSaved = SQLUtil.execute(
                         "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?,?,?,?,?,?)",
                         orderDetailsDTO.getOrderId(),
                         orderDetailsDTO.getProductId(),
@@ -106,15 +126,15 @@ public class OrderModel {
         }
     }
 
+    @Override
+    public String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
+        //   String productId = ""; // Initialize productId variable
 
-    public String getProductIdByDescription(String selectedProductDesc) throws SQLException {
-     //   String productId = ""; // Initialize productId variable
-
-        ResultSet rst = CrudUtil.execute("SELECT product_id FROM products WHERE product_description = ?", selectedProductDesc);
+        ResultSet rst = SQLUtil.execute("SELECT product_id FROM products WHERE product_description = ?", selectedProductDesc);
 
         if (rst.next()) {
             return rst.getString(1);
         }
         return null;
-    }*/
+    }
 }

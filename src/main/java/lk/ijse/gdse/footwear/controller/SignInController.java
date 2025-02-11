@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.gdse.footwear.dao.custom.UserDAO;
+import lk.ijse.gdse.footwear.dao.custom.impl.UserDAOImpl;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.UserDTO;
 import lk.ijse.gdse.footwear.model.UserModel;
@@ -53,7 +55,8 @@ public class SignInController {
     @FXML
     private TextField txtUsername;
 
-    private UserModel userModel = new UserModel();
+  //  private UserModel userModel = new UserModel();
+    UserDAO userDAO = new UserDAOImpl();
 
     @FXML
     void btnSignInOnAction(ActionEvent event) {
@@ -85,7 +88,7 @@ public class SignInController {
 
     private void saveUser(UserDTO userDTO) {
         try {
-            boolean isSaved = userModel.saveUser(userDTO);
+            boolean isSaved = userDAO.saveUser(userDTO);
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "User saved successfully..! ").show();

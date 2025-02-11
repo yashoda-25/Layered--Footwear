@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ProductModel {
-    public String getNextProductId() throws SQLException {
+   /* public String getNextProductId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT product_id FROM Products ORDER BY product_id DESC LIMIT 1");
 
         if (rst.next()) {
@@ -100,7 +100,7 @@ public class ProductModel {
     } */
 
 
-    public boolean reduceQty(OrderDetailsDTO orderDetailsDTO) throws SQLException {
+   /* public boolean reduceQty(OrderDetailsDTO orderDetailsDTO) throws SQLException {
         // Execute SQL query to update the item quantity in the database
         return CrudUtil.execute("UPDATE Products SET qty = qty - ? WHERE product_id =? ",
                 orderDetailsDTO.getQty(),  // Quantity to reduce
@@ -134,5 +134,5 @@ public class ProductModel {
             );
         }
         return null;
-    }
+    }*/
 }

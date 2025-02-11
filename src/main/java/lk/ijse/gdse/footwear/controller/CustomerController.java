@@ -18,9 +18,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lk.ijse.gdse.footwear.bo.BOFactory;
+import lk.ijse.gdse.footwear.bo.custom.CustomerBO;
+import lk.ijse.gdse.footwear.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.gdse.footwear.dto.CustomerDTO;
 import lk.ijse.gdse.footwear.dto.tm.CustomerTM;
-import lk.ijse.gdse.footwear.model.CustomerModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -91,7 +93,9 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField txtPhoneNo;
 
-    CustomerModel customerModel = new CustomerModel();
+   // CustomerModel customerModel = new CustomerModel();
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOType.CUSTOMER);
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -110,7 +114,7 @@ public class CustomerController implements Initializable {
         }
     }
 
-    private void refreshPage() throws SQLException{
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextCustomerId();
         loadTableData();
 
@@ -125,8 +129,8 @@ public class CustomerController implements Initializable {
         txtPhoneNo.setText("");
     }
 
-    private void loadTableData() throws SQLException{
-        ArrayList<CustomerDTO> customerDTOs = customerModel.getAllCustomers();
+    private void loadTableData() throws SQLException, ClassNotFoundException {
+        ArrayList<CustomerDTO> customerDTOs =customerBO.getAll();
         ObservableList<CustomerTM> customerTMS = FXCollections.observableArrayList();
 
         for (CustomerDTO customerDTO: customerDTOs){
@@ -144,9 +148,9 @@ public class CustomerController implements Initializable {
         tblCustomer.setItems(customerTMS);
     }
 
-    public void loadNextCustomerId() throws SQLException {
+    public void loadNextCustomerId() throws SQLException, ClassNotFoundException {
         try{
-            String nextCustomerId = customerModel.getNextCustomerId();
+            String nextCustomerId = customerBO.getNextId();
             if (nextCustomerId == null || nextCustomerId.isEmpty()){
                 throw new SQLException("No customer id found in database. ");
             }
@@ -159,7 +163,7 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws SQLException {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = lblCustomerId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -220,7 +224,7 @@ public class CustomerController implements Initializable {
                     phoneNo
             );
 
-            boolean isSaved = customerModel.saveCustomer(customerDTO);
+            boolean isSaved = customerBO.save(customerDTO);
             if (isSaved) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer saved successfully..! ").show();
@@ -249,7 +253,7 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) throws SQLException {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = lblCustomerId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure? ", ButtonType.YES, ButtonType.NO);
@@ -257,7 +261,7 @@ public class CustomerController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = customerModel.deleteCustomer(customerId);
+            boolean isDeleted = customerBO.delete(customerId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully..! ").show();
@@ -268,7 +272,7 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) throws SQLException {
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
     }
 
@@ -310,7 +314,7 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String customerId = lblCustomerId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -371,7 +375,7 @@ public class CustomerController implements Initializable {
                     phoneNo
             );
 
-            boolean isUpdate = customerModel.updateCustomer(customerDTO);
+            boolean isUpdate = customerBO.update(customerDTO);
             if (isUpdate) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer update successfully..! ").show();

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class SupplierModel {
-    public String getNextSupplierId() throws SQLException {
+    /*public String getNextSupplierId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT supplier_id FROM Supplier ORDER BY supplier_id DESC LIMIT 1");
 
         if (rst.next()) {
@@ -89,5 +89,5 @@ public class SupplierModel {
                 supplierDTO.getPhoneNo(),
                 supplierDTO.getSupplierId()
         );
-    }
+    }*/
 }

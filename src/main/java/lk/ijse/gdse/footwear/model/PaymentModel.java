@@ -10,7 +10,7 @@ import static lk.ijse.gdse.footwear.util.CrudUtil.execute;
 
 public class PaymentModel {
 
-    public PaymentDTO findById(String selectedPaymentMethod) throws SQLException {
+   /* public PaymentDTO findById(String selectedPaymentMethod) throws SQLException {
         ResultSet rst = execute("SELECT * FROM payment WHERE pay_method =?", selectedPaymentMethod);
 
         if (rst.next()) {
@@ -58,5 +58,5 @@ public class PaymentModel {
 
         // Return true if the insertion was successful
         return isInserted;
-    }
+    }*/
 }

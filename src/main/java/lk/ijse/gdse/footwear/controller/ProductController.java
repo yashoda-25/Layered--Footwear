@@ -9,12 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.gdse.footwear.dto.InventoryDTO;
+import lk.ijse.gdse.footwear.bo.BOFactory;
+import lk.ijse.gdse.footwear.bo.custom.ProductBO;
 import lk.ijse.gdse.footwear.dto.ProductDTO;
-import lk.ijse.gdse.footwear.dto.ProductDetailsDTO;
 import lk.ijse.gdse.footwear.dto.tm.ProductTM;
-import lk.ijse.gdse.footwear.model.InventoryModel;
-import lk.ijse.gdse.footwear.model.ProductModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -69,8 +67,9 @@ public class ProductController implements Initializable {
     @FXML
     private TextField txtQuantity;
 
-    ProductModel productModel = new ProductModel();
+  //  ProductModel productModel = new ProductModel();
   //  InventoryModel inventoryModel = new InventoryModel();
+    ProductBO productBO = (ProductBO) BOFactory.getInstance().getBO(BOFactory.BOType.PRODUCT);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -88,7 +87,7 @@ public class ProductController implements Initializable {
         }
     }
 
-    private void refreshPage() throws SQLException {
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextProductId();
         loadTableData();
 
@@ -102,8 +101,8 @@ public class ProductController implements Initializable {
      //   txtInventoryDesc.setText("");
     }
 
-    private void loadTableData() throws SQLException {
-        ArrayList<ProductDTO> productDTOs = productModel.getAllProducts();
+    private void loadTableData() throws SQLException, ClassNotFoundException {
+        ArrayList<ProductDTO> productDTOs = productBO.getAll();
         ObservableList<ProductTM> productTMS = FXCollections.observableArrayList();
 
         for (ProductDTO productDTO : productDTOs) {
@@ -124,9 +123,9 @@ public class ProductController implements Initializable {
         tblProduct.setItems(productTMS);
     }
 
-    private void loadNextProductId() {
+    private void loadNextProductId() throws ClassNotFoundException {
         try{
-            String nextProductId = productModel.getNextProductId();
+            String nextProductId = productBO.getNextId();
             if (nextProductId == null || nextProductId.isEmpty()){
                 throw new SQLException("No product id found in database. ");
             }
@@ -138,7 +137,7 @@ public class ProductController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) throws SQLException {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String productId = lblProductId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure? ", ButtonType.YES, ButtonType.NO);
@@ -146,7 +145,7 @@ public class ProductController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = productModel.deleteProduct(productId);
+            boolean isDeleted = productBO.delete(productId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Product deleted successfully..! ").show();
@@ -157,12 +156,12 @@ public class ProductController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) throws SQLException {
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws SQLException {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
         if (txtQuantity.getText().isEmpty() || txtPrice.getText().isEmpty()){
             new Alert(Alert.AlertType.ERROR, "Please fill all the fields. ").show();
@@ -186,7 +185,7 @@ public class ProductController implements Initializable {
         ProductDTO productDTO = new ProductDTO(productId, productDescription, quantity, price);
 
       //  boolean isInventorySaved = inventoryModel.saveInventory(productDetailsDTO);
-        boolean isProductSaved = productModel.saveProduct(productDTO);
+        boolean isProductSaved = productBO.save(productDTO);
 
         if (isProductSaved) {
             refreshPage();
@@ -205,7 +204,7 @@ public class ProductController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String productId = lblProductId.getText();
         String productDescription = txtProductDescription.getText();
         int quantity = Integer.parseInt(txtQuantity.getText());
@@ -217,7 +216,7 @@ public class ProductController implements Initializable {
 
 
       //  boolean isInventoryUpdated = inventoryModel.updateInventory(inventoryDTO);
-        boolean isProductUpdated = productModel.updateProduct(productDTO);
+        boolean isProductUpdated = productBO.update(productDTO);
 
         if (isProductUpdated) {
             refreshPage();

@@ -3,7 +3,6 @@ package lk.ijse.gdse.footwear.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,7 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.gdse.footwear.model.ForgotPasswordModel;
+import lk.ijse.gdse.footwear.dao.custom.ForgotPasswordDAO;
+import lk.ijse.gdse.footwear.dao.custom.impl.ForgotPasswordDAOImpl;
+import lk.ijse.gdse.footwear.entity.ForgotPassword;
 
 import java.io.IOException;
 
@@ -51,7 +52,8 @@ public class ForgotPasswordController {
     @FXML
     private TextField txtUsername;
 
-    private ForgotPasswordModel forgotPasswordModel = new ForgotPasswordModel();
+    //private ForgotPassword forgotPasswordModel = new ForgotPassword();
+    ForgotPasswordDAO forgotPasswordDAO = new ForgotPasswordDAOImpl();
 
     @FXML
     void btnChangedPasswordOnAction(ActionEvent event) {
@@ -78,7 +80,7 @@ public class ForgotPasswordController {
         try {
             boolean isChangedPassword = false;
             if (newPassword.equals(confirmNewPassword)) {
-                isChangedPassword = forgotPasswordModel.changedPassword(username, confirmNewPassword);
+                isChangedPassword = forgotPasswordDAO.changedPassword(username, confirmNewPassword);
             }else {
                 new Alert(Alert.AlertType.ERROR, "Passwords do not match ").show();
                 btnChangedPassword.setVisible(false);

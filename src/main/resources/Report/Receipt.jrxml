@@ -23,20 +23,7 @@ JOIN
 JOIN
     payment pm ON o.order_id = pm.order_id
 WHERE
-    o.order_id = 'O003'
-GROUP BY
-    o.order_id,
-    o.date,
-    o.customer_id,
-    od.product_id,
-    p.product_description,
-    od.qty,
-    od.price,
-    pm.discount,
-    pm.pay_method;
-
-
-
+    o.order_id = '$P{order_id};
 ]]></query>
 	<field name="order_id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="order_id"/>

@@ -1,13 +1,15 @@
-package lk.ijse.gdse.footwear.model;
+package lk.ijse.gdse.footwear.entity;
 
-import lk.ijse.gdse.footwear.dto.InventoryDTO;
-import lk.ijse.gdse.footwear.util.CrudUtil;
+import lombok.*;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 
-public class InventoryModel {
-    public String getNextInventoryId() throws SQLException {
+public class Inventory {
+   /* public String getNextInventoryId() throws SQLException {
         ResultSet rst = CrudUtil.execute("SELECT inventory_id FROM Inventory ORDER BY inventory_id DESC LIMIT 1");
 
         if (rst.next()) {
@@ -44,5 +46,7 @@ public class InventoryModel {
             e.printStackTrace();
             return false;
         }
-    }
+    }*/
+    private String inventoryId;
+    private String InventoryDescription;
 }

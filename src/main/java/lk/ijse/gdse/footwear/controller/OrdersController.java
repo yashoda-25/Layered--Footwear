@@ -8,9 +8,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.footwear.bo.BOFactory;
+import lk.ijse.gdse.footwear.bo.custom.*;
+import lk.ijse.gdse.footwear.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.*;
 import lk.ijse.gdse.footwear.dto.tm.CartTM;
+import lk.ijse.gdse.footwear.entity.Payment;
 import lk.ijse.gdse.footwear.model.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
@@ -103,10 +107,16 @@ public class OrdersController  implements Initializable {
     private double netTotal = 0;
  //   private DecimalFormat decimalFormat = new DecimalFormat("0000.00");
 
-    private final OrderModel orderModel = new OrderModel();
-    private final CustomerModel customerModel = new CustomerModel();
-    private final ProductModel productModel = new ProductModel();
-    private final PaymentModel paymentModel = new PaymentModel();
+    OrderDetailsBO orderDetailsBO = (OrderDetailsBO) BOFactory.getInstance().getBO(BOFactory.BOType.ORDER_DETAILS);
+   // private final OrderModel orderModel = new OrderModel();
+    OrderBO orderBO = (OrderBO) BOFactory.getInstance().getBO(BOFactory.BOType.ORDER);
+
+    CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOType.CUSTOMER);
+  //  private final CustomerModel customerModel = new CustomerModel();
+  //  private final ProductModel productModel = new ProductModel();
+    ProductBO productBO = (ProductBO) BOFactory.getInstance().getBO(BOFactory.BOType.PRODUCT);
+   // private final PaymentModel paymentModel = new PaymentModel();
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
 
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
 
@@ -116,15 +126,15 @@ public class OrdersController  implements Initializable {
 
         try {
             refreshPage();
-        }catch (SQLException e){
+        }catch (SQLException | ClassNotFoundException e){
             new Alert(Alert.AlertType.ERROR, "Fail to load data..! ").show();
         }
         cmbPaymentMethod.getItems().addAll("cash", "Card");
     }
 
-    private void refreshPage() throws SQLException {
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         // set order details
-        lblOrderId.setText(orderModel.getNextOrderId());
+        lblOrderId.setText(orderBO.getNextId());
         lblOrderDate.setText(LocalDate.now().toString());
 
         // load combo box data
@@ -148,16 +158,16 @@ public class OrdersController  implements Initializable {
         tblCart.refresh();
     }
 
-    private void loadProductDesc() throws SQLException {
-        ArrayList<String> productDesc = productModel.getAllProductsDesc();
+    private void loadProductDesc() throws SQLException, ClassNotFoundException {
+        ArrayList<String> productDesc = productBO.getAllProductsDesc();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(productDesc);
         cmbProductDescription.setItems(observableList);
 
     }
 
-    private void loadPhoneNo() throws SQLException {
-        ArrayList<String> phoneNos = customerModel.getAllPhoneNos();
+    private void loadPhoneNo() throws SQLException, ClassNotFoundException {
+        ArrayList<String> phoneNos = customerBO.getAllPhoneNos();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(phoneNos);
         cmbPhoneNo.setItems(observableList);
@@ -175,7 +185,8 @@ public class OrdersController  implements Initializable {
     }
 
     @FXML
-    void btnAddToCartOnAction(ActionEvent event) throws SQLException {
+    void btnAddToCartOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
+
 
         // Inputs
         String qtyPattern = "^[0-9]+$";
@@ -183,10 +194,6 @@ public class OrdersController  implements Initializable {
         String selectedPhoneNo = cmbPhoneNo.getValue();
         String selectedPaymentMethod = cmbPaymentMethod.getValue();
         String selectedProductDesc = cmbProductDescription.getValue();
-        String productId = orderModel.getProductIdByDescription(selectedProductDesc);
-        int cartQty = Integer.parseInt(cartQtyString);
-        int qtyOnHand = Integer.parseInt(lblProductQty.getText());
-        double unitPrice = Double.parseDouble(lblUnitPrice.getText());
 
         // Validate phone number, payment method, product description selections
         if (selectedPhoneNo == null || selectedPhoneNo.isEmpty() || selectedPaymentMethod == null || selectedPaymentMethod.isEmpty() || selectedProductDesc == null || selectedProductDesc.isEmpty()) {
@@ -200,6 +207,11 @@ public class OrdersController  implements Initializable {
             return;
         }
 
+        String productId = orderBO.getProductIdByDescription(selectedProductDesc);
+        int cartQty = Integer.parseInt(cartQtyString);
+        int qtyOnHand = Integer.parseInt(lblProductQty.getText());
+        double unitPrice = Double.parseDouble(lblUnitPrice.getText());
+
         // Check for sufficient stock
         if (qtyOnHand < cartQty) {
             new Alert(Alert.AlertType.ERROR, "Not enough products..!").show();
@@ -210,12 +222,13 @@ public class OrdersController  implements Initializable {
 
         // Calculate amount and net total
         double amount = unitPrice * cartQty;
+        System.out.println("Amount: " + amount);
         netAmount += amount;
         lblAmount.setText(String.format("%.2f", netAmount));
 
-
-        String discountText = txtDiscount.getText();
+        // String dis = txtDiscount.getText();
         double discount = 0.0; // Default discount
+        //  String discountText = txtDiscount.getText();
         // Parse discount
         try {
             if (!txtDiscount.getText().trim().isEmpty()) {
@@ -230,17 +243,32 @@ public class OrdersController  implements Initializable {
             return;
         }
 
+        // Apply discount to item total
+     //   double discountedAmount = amount * (1 - discount / 100);
+       // System.out.println("Discounted Amount: " + total);
+     //   netTotal += discountedAmount;
+       // System.out.println("Updated Total: " + netTotal);
+
+
         // Apply discount and update netTotal
         netTotal += netAmount * (1 - discount / 100);
+     //   netTotal += amount * (1 - discount / 100);
         lblTotal.setText(String.format("%.2f", netTotal));
         txtDiscount.setText(String.format("%.2f", discount));
+
+
 
         // Check if the product is already in the cart and update it
         for (CartTM cartTM : cartTMS) {
 
             if (cartTM.getProductDesc().equals(selectedProductDesc)) {
                 int updateQty = cartTM.getCartQty() + cartQty;
+              //  double updateTotal = unitPrice * updateQty * (1 - discount / 100);
+
                 cartTM.setCartQty(updateQty);
+              //  cartTM.setTotal(updateTotal);
+
+
                 cartTM.setTotal((unitPrice * updateQty) * (1 - discount / 100));
 
                 tblCart.refresh();
@@ -273,6 +301,8 @@ public class OrdersController  implements Initializable {
 
         // Clear input fields
             txtAddToCart.clear();
+            txtDiscount.clear();
+
     }
 
     private void updateTotalLabel () {
@@ -283,10 +313,15 @@ public class OrdersController  implements Initializable {
             lblTotal.setText(String.format("%.2f", totalAmount));
     }
 
+
+
+
+
+
     @FXML
-    void cmbPhoneNoOnAction(ActionEvent actionEvent) throws SQLException {
+    void cmbPhoneNoOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedPhoneNo = cmbPhoneNo.getSelectionModel().getSelectedItem();
-        CustomerDTO customerDTO = customerModel.findCustomerByPhoneNumber(selectedPhoneNo);
+        CustomerDTO customerDTO = customerBO.findCustomerByPhoneNumber(selectedPhoneNo);
 
         if (customerDTO != null) {
             lblCustomerName.setText(customerDTO.getName());
@@ -294,9 +329,9 @@ public class OrdersController  implements Initializable {
     }
 
     @FXML
-    void cmbProductDescriptionOnAction(ActionEvent actionEvent) throws SQLException {
+    void cmbProductDescriptionOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedProductDesc = cmbProductDescription.getSelectionModel().getSelectedItem();
-        ProductDTO productDTO = productModel.findByProductionDescripton(selectedProductDesc);
+        ProductDTO productDTO = productBO.findByProductionDescripton(selectedProductDesc);
 
         if (productDTO != null) {
             lblProductQty.setText(String.valueOf(productDTO.getQuantity()));
@@ -305,9 +340,9 @@ public class OrdersController  implements Initializable {
     }
 
     @FXML
-    void cmbPaymentMethodOnAction(ActionEvent actionEvent) throws SQLException {
+    void cmbPaymentMethodOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedPaymentMethod = cmbPaymentMethod.getSelectionModel().getSelectedItem();
-        PaymentDTO paymentDTO = paymentModel.findById(selectedPaymentMethod);
+        PaymentDTO paymentDTO = paymentBO.findById(selectedPaymentMethod);
 
         if (paymentDTO != null) {
             lblAmount.setText(String.format("%.2f", paymentDTO.getAmount()));
@@ -317,7 +352,7 @@ public class OrdersController  implements Initializable {
     }
 
     @FXML
-    void btnConfirmOnAction(ActionEvent actionEvent) throws SQLException {
+    void btnConfirmOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
         // Validate cart is not empty
         if (tblCart.getItems().isEmpty()) {
@@ -359,11 +394,11 @@ public class OrdersController  implements Initializable {
         }
 
         // Get order details
-        String paymentId = paymentModel.getNextPaymentId();
+        String paymentId = paymentBO.getNextId();
         String orderId = lblOrderId.getText();
         Date dateOfOrder = Date.valueOf(lblOrderDate.getText());
 
-        CustomerDTO selectedCustomerDTO = customerModel.findCustomerByPhoneNumber(phoneNo);
+        CustomerDTO selectedCustomerDTO = customerBO.findCustomerByPhoneNumber(phoneNo);
         if (selectedCustomerDTO == null) {
             new Alert(Alert.AlertType.ERROR, "Customer not found!").show();
             return;
@@ -400,10 +435,15 @@ public class OrdersController  implements Initializable {
                 orderId
         );
 
+      //  Payment payment = new Payment();
+        // Convert PaymentDTO to Payment entity
+      //  Payment payment = convertToPaymentEntity(paymentDTO);
 
-        OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
-        boolean isOrderSaved = orderModel.saveOrderWithPayment(placeOrderDTO,paymentDTO);
-        boolean isOrderDetailsSaved = orderDetailsModel.saveOrderDetailsList(orderDetailsDTOS);
+        boolean isOrderSaved = orderBO.saveOrderWithPayment(placeOrderDTO,paymentDTO);
+      //  boolean isPaymentSaved = paymentBO.save(paymentDTO);
+        // OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
+
+        boolean isOrderDetailsSaved = orderDetailsBO.saveOrderDetailsList(orderDetailsDTOS);
 
         if (isOrderSaved && isOrderDetailsSaved ) {
             new Alert(Alert.AlertType.INFORMATION, "Order and Order details successfully added..!").show();
@@ -412,6 +452,7 @@ public class OrdersController  implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
         }
     }
+
 
     @FXML
     void btnBillOnAction(ActionEvent event) {
@@ -503,7 +544,7 @@ public class OrdersController  implements Initializable {
 
 
     @FXML
-    void btnResetOnAction(ActionEvent actionEvent) throws SQLException {
+    void btnResetOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         refreshPage();
     }
 

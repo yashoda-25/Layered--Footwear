@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.footwear.bo.BOFactory;
+import lk.ijse.gdse.footwear.bo.custom.EmployeeBO;
 import lk.ijse.gdse.footwear.dto.EmployeeDTO;
 import lk.ijse.gdse.footwear.dto.tm.EmployeeTM;
 import lk.ijse.gdse.footwear.model.EmployeeModel;
@@ -81,7 +83,8 @@ public class EmployeeController implements Initializable {
     @FXML
     private TextField txtPhoneNo;
 
-    EmployeeModel employeeModel = new EmployeeModel();
+    //EmployeeModel employeeModel = new EmployeeModel();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -100,7 +103,7 @@ public class EmployeeController implements Initializable {
         }
     }
 
-    private void refreshPage() throws SQLException {
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextEmployeeId();
         loadTableData();
 
@@ -115,8 +118,8 @@ public class EmployeeController implements Initializable {
         txtPhoneNo.setText("");
     }
 
-    private void loadTableData() throws SQLException {
-        ArrayList<EmployeeDTO> employeeDTOS = employeeModel.getAllEmployees();
+    private void loadTableData() throws SQLException, ClassNotFoundException {
+        ArrayList<EmployeeDTO> employeeDTOS = employeeBO.getAll();
         ObservableList<EmployeeTM> employeeTMS = FXCollections.observableArrayList();
 
         for (EmployeeDTO employeeDTO : employeeDTOS) {
@@ -130,16 +133,16 @@ public class EmployeeController implements Initializable {
             );
             employeeTMS.add(employeeTM);
         }
-       tblEmployee.setItems(employeeTMS);
+        tblEmployee.setItems(employeeTMS);
     }
 
-    private void loadNextEmployeeId() {
+    private void loadNextEmployeeId() throws ClassNotFoundException {
         try {
-            String nextEmplyeeId = employeeModel.getNextEmployeeId();
-            if (nextEmplyeeId == null || nextEmplyeeId.isEmpty()) {
+            String nextEmployeeId = employeeBO.getNextId();
+            if (nextEmployeeId == null || nextEmployeeId.isEmpty()) {
                 throw new SQLException("No employee id found in database. ");
             }
-            lblEmployeeId.setText(nextEmplyeeId);
+            lblEmployeeId.setText(nextEmployeeId);
         }catch (SQLException e) {
             e.printStackTrace();
             new Alert(Alert.AlertType.ERROR, "Fail to load employee id. ").show();
@@ -147,7 +150,7 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws SQLException {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeId = lblEmployeeId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -208,7 +211,7 @@ public class EmployeeController implements Initializable {
                     phoneNo
             );
 
-            boolean isSaved = employeeModel.saveEmployee(employeeDTO);
+            boolean isSaved = employeeBO.save(employeeDTO);
             if (isSaved) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Employee saved successfully..! ").show();
@@ -237,7 +240,7 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeId = lblEmployeeId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -299,7 +302,7 @@ public class EmployeeController implements Initializable {
                     phoneNo
             );
 
-            boolean isUpdate = employeeModel.updateEmployee(employeeDTO);
+            boolean isUpdate = employeeBO.update(employeeDTO);
             if (isUpdate) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Employee update successfully..! ").show();
@@ -311,7 +314,7 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) throws SQLException {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String employeeId = lblEmployeeId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure? ", ButtonType.YES, ButtonType.NO);
@@ -319,7 +322,7 @@ public class EmployeeController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = employeeModel.deleteEmployee(employeeId);
+            boolean isDeleted = employeeBO.delete(employeeId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Customer deleted successfully..! ").show();
@@ -336,7 +339,7 @@ public class EmployeeController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) throws SQLException {
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
 
     }

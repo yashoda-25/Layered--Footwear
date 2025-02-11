@@ -9,6 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lk.ijse.gdse.footwear.bo.BOFactory;
+import lk.ijse.gdse.footwear.bo.custom.SupplierBO;
 import lk.ijse.gdse.footwear.dto.SupplierDTO;
 import lk.ijse.gdse.footwear.dto.tm.SupplierTM;
 import lk.ijse.gdse.footwear.model.SupplierModel;
@@ -81,8 +83,8 @@ public class SupplierController implements Initializable {
     @FXML
     private TextField txtPhoneNo;
 
-
-    SupplierModel supplierModel = new SupplierModel();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getBO(BOFactory.BOType.SUPPLIER);
+   // SupplierModel supplierModel = new SupplierModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -101,7 +103,7 @@ public class SupplierController implements Initializable {
         }
     }
 
-    private void refreshPage() throws SQLException {
+    private void refreshPage() throws SQLException, ClassNotFoundException {
         loadNextSupplierID();
         loadTableData();
 
@@ -117,9 +119,9 @@ public class SupplierController implements Initializable {
 
     }
 
-    private void loadNextSupplierID() {
+    private void loadNextSupplierID() throws ClassNotFoundException {
         try{
-            String nextSupplierId = supplierModel.getNextSupplierId();
+            String nextSupplierId = supplierBO.getNextId();
             if(nextSupplierId == null || nextSupplierId.isEmpty()){
                 throw new SQLException("No supplier id found in database. ");
             }
@@ -130,8 +132,8 @@ public class SupplierController implements Initializable {
         }
     }
 
-    private void loadTableData() throws SQLException {
-        ArrayList<SupplierDTO> supplierDTOS = supplierModel.getAllSuppliers();
+    private void loadTableData() throws SQLException, ClassNotFoundException {
+        ArrayList<SupplierDTO> supplierDTOS = supplierBO.getAll();
         ObservableList<SupplierTM> supplierTMS = FXCollections.observableArrayList();
 
         for (SupplierDTO supplierDTO : supplierDTOS) {
@@ -149,7 +151,7 @@ public class SupplierController implements Initializable {
     }
 
     @FXML
-    void btnDeleteOnAction(ActionEvent event) throws SQLException {
+    void btnDeleteOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String supplierId = lblSupplierId.getText();
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure? ", ButtonType.YES, ButtonType.NO);
@@ -157,7 +159,7 @@ public class SupplierController implements Initializable {
 
         if (optionalButtonType.isPresent() && optionalButtonType.get() == ButtonType.YES) {
 
-            boolean isDeleted = supplierModel.deleteSupplier(supplierId);
+            boolean isDeleted = supplierBO.delete(supplierId);
             if (isDeleted) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully..! ").show();
@@ -173,12 +175,12 @@ public class SupplierController implements Initializable {
     }
 
     @FXML
-    void btnResetOnAction(ActionEvent event) throws SQLException {
+    void btnResetOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         refreshPage();
     }
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) throws SQLException {
+    void btnSaveOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String supplierId = lblSupplierId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -238,7 +240,7 @@ public class SupplierController implements Initializable {
                     email,
                     phoneNo
             );
-            boolean isSaved = supplierModel.saveSupplier(supplierDTO);
+            boolean isSaved = supplierBO.save(supplierDTO);
             if (isSaved) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Supplier saved successfully..! ").show();
@@ -269,7 +271,7 @@ public class SupplierController implements Initializable {
 
 
     @FXML
-    void btnUpdateOnAction(ActionEvent event) throws SQLException {
+    void btnUpdateOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String supplierId = lblSupplierId.getText();
         String name = txtName.getText();
         String nic = txtNic.getText();
@@ -329,7 +331,7 @@ public class SupplierController implements Initializable {
                     email,
                     phoneNo
             );
-            boolean isUpdate = supplierModel.updateSupplier(supplierDTO);
+            boolean isUpdate = supplierBO.update(supplierDTO);
             if (isUpdate) {
                 refreshPage();
                 new Alert(Alert.AlertType.INFORMATION, "Supplier update successfully..! ").show();

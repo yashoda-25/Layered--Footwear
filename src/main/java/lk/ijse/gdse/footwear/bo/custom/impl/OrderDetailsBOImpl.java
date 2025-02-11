@@ -1,20 +1,24 @@
-package lk.ijse.gdse.footwear.model;
+package lk.ijse.gdse.footwear.bo.custom.impl;
 
+import lk.ijse.gdse.footwear.bo.custom.OrderDetailsBO;
 import lk.ijse.gdse.footwear.dao.DAOFactory;
+import lk.ijse.gdse.footwear.dao.SQLUtil;
+import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.ProductDAO;
-import lk.ijse.gdse.footwear.db.DBConnection;
+import lk.ijse.gdse.footwear.dao.custom.impl.OrderDetailsDAOImpl;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.util.CrudUtil;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderDetailsModel {
-   // private final ProductModel productModel = new ProductModel();
-  //  ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
+public class OrderDetailsBOImpl implements OrderDetailsBO {
 
-   /* public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
+    OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
+    ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
+
+    @Override
+    public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
             if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
                 System.out.println("Error: order_id or product_id is null.");
@@ -28,27 +32,30 @@ public class OrderDetailsModel {
                 return false;
             }
 
-            boolean isProductUpdated = productDAO.reduceQty(orderDetailsDTO);
+            boolean isProductUpdated = productDAO.reduceQty(orderDetailsDTO.getProductId(), orderDetailsDTO.getQty());
             if (!isProductUpdated) {
                 System.out.println("Failed to update stock for productId: " + orderDetailsDTO.getProductId());
                 return false;
             }
         }
         return true;
+       // return orderDetailsDAO.saveOrderDetailsList(orderDetailsDTOS);
+
     }
 
-    private boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException {
+    @Override
+    public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
 
         if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
             System.out.println("Error: order_id or product_id is null.");
             return false;
         }
 
-        String query = "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?, ?, ?, ?, ?, ?)";
+       /* String query = "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             // Execute the query with the provided DTO values
-            boolean isSaved = CrudUtil.execute(
+            boolean isSaved = SQLUtil.execute(
                     query,
                     orderDetailsDTO.getOrderId(),
                     orderDetailsDTO.getProductId(),
@@ -69,7 +76,8 @@ public class OrderDetailsModel {
             System.err.println("Unexpected error while saving order details: " + exception.getMessage());
             exception.printStackTrace();
             return false; // Return false if a generic exception occurs
-        }
-    }*/
-}
+        }*/
+        return orderDetailsDAO.saveOrderDetail(orderDetailsDTO);
+    }
 
+}

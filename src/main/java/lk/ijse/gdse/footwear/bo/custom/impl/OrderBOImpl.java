@@ -1,49 +1,71 @@
-package lk.ijse.gdse.footwear.model;
+package lk.ijse.gdse.footwear.bo.custom.impl;
 
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import lk.ijse.gdse.footwear.bo.custom.PaymentBO;
+import lk.ijse.gdse.footwear.bo.custom.OrderBO;
 import lk.ijse.gdse.footwear.dao.DAOFactory;
+import lk.ijse.gdse.footwear.dao.SQLUtil;
+import lk.ijse.gdse.footwear.dao.custom.OrderDAO;
 import lk.ijse.gdse.footwear.dao.custom.PaymentDAO;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.PaymentDTO;
 import lk.ijse.gdse.footwear.dto.PlaceOrderDTO;
-import lk.ijse.gdse.footwear.dto.ProductDTO;
+import lk.ijse.gdse.footwear.entity.PlaceOrder;
 import lk.ijse.gdse.footwear.entity.Payment;
 import lk.ijse.gdse.footwear.util.CrudUtil;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderModel {
+public class OrderBOImpl implements OrderBO {
 
-   // private final PaymentModel paymentModel = new PaymentModel();
-   // PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
-  //  private final OrderDetailsModel orderDetailsModel = new OrderDetailsModel();
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
+    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
-    /*public String getNextOrderId() throws SQLException {
-        ResultSet rst = CrudUtil.execute("SELECT order_id FROM orders ORDER BY order_id DESC LIMIT 1");
-
-        if (rst.next()) {
-            String lastId = rst.getString(1);
-            System.out.println("Order id retrieved: " + lastId);
-
-            String substring = lastId.substring(1);
-            int i = Integer.parseInt(substring);
-            int newIdIndex = i + 1;
-            System.out.println("New order id: " + newIdIndex);
-
-            return String.format("O%03d", newIdIndex);
-        }
-        System.out.println("No existing Order IDs, returning O001");
-        return "O001";
+    @Override
+    public String getNextId() throws SQLException, ClassNotFoundException {
+        return orderDAO.getNextId();
     }
 
-    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, Payment payment) throws SQLException {
+
+
+   /* @Override
+    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
+        // Calculate the total amount and apply discount
+       /* double totalAmount = 0.0;
+        for (OrderDetailsDTO orderDetail : placeOrderDTO.getOrderDetailsDTOS()) {
+            totalAmount += orderDetail.getPrice() * orderDetail.getQty();
+        }
+
+        // Apply discount to the total amount
+        double discountedTotal = totalAmount * (1 - paymentDTO.getDiscount() / 100);
+
+        // Update the paymentDTO with the correct amount and discounted total
+        paymentDTO.setAmount(totalAmount);
+        paymentDTO.setDiscount(paymentDTO.getDiscount());
+        paymentDTO.setPaymentMethod(paymentDTO.getPaymentMethod());
+
+        PlaceOrder placeOrder = new PlaceOrder(
+            placeOrderDTO.getOrderId(),
+            placeOrderDTO.getCustomerId(),
+            placeOrderDTO.getOrderDate(),
+            placeOrderDTO.getOrderDetailsDTOS()
+        );
+
+        Payment payment = new Payment(
+                paymentDTO.getPaymentID(),
+                paymentDTO.getAmount(),
+                paymentDTO.getDiscount(),
+                paymentDTO.getPaymentMethod(),
+                paymentDTO.getDate(),
+                paymentDTO.getOrderID()
+        );
+        return orderDAO.saveOrderWithPayment(placeOrderDTO,paymentDTO);
+    }*/
+
+    @Override
+    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         try {
@@ -65,7 +87,7 @@ public class OrderModel {
                 return false;
             }
 
-            boolean isPaymentSaved = paymentDAO.save(payment);
+            boolean isPaymentSaved = paymentDAO.save(paymentDTO);
             System.out.println("Payment saved: " + isPaymentSaved);
             if (!isPaymentSaved) {
                 connection.rollback();
@@ -107,14 +129,16 @@ public class OrderModel {
     }
 
 
-    public String getProductIdByDescription(String selectedProductDesc) throws SQLException {
-     //   String productId = ""; // Initialize productId variable
 
-        ResultSet rst = CrudUtil.execute("SELECT product_id FROM products WHERE product_description = ?", selectedProductDesc);
+    @Override
+    public String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
+        //   String productId = ""; // Initialize productId variable
+
+        ResultSet rst = SQLUtil.execute("SELECT product_id FROM products WHERE product_description = ?", selectedProductDesc);
 
         if (rst.next()) {
             return rst.getString(1);
         }
         return null;
-    }*/
+    }
 }

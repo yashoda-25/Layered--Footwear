@@ -1,11 +1,12 @@
-package lk.ijse.gdse.footwear.model;
+package lk.ijse.gdse.footwear.dao.custom.impl;
 
+import lk.ijse.gdse.footwear.dao.custom.ForgotPasswordDAO;
 import lk.ijse.gdse.footwear.db.DBConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ForgotPasswordModel {
+public class ForgotPasswordDAOImpl implements ForgotPasswordDAO {
     public boolean changedPassword(String username, String confirmNewPassword) throws SQLException {
         String sql = "UPDATE user SET password=? WHERE user_name=?";
 
