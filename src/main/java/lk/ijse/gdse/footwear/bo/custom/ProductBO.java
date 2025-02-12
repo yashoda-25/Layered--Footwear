@@ -20,14 +20,6 @@ public interface ProductBO extends SuperBO {
     ArrayList<String> getAllProductsDesc() throws SQLException, ClassNotFoundException;
     ProductDTO findByProductionDescripton(String selectedProductDesc) throws SQLException, ClassNotFoundException;
 
-  /*  public boolean reduceQty(OrderDetailsDTO orderDetailsDTO) throws SQLException {
-        Connection connection = DBConnection.getInstance().getConnection();
-        String sql = "UPDATE Products SET qty = qty - ? WHERE product_Id = ?";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setInt(1, orderDetailsDTO.getQty());
-        pstm.setString(2, orderDetailsDTO.getProductId());
-        return pstm.executeUpdate() > 0;
-    } */
 
 
 

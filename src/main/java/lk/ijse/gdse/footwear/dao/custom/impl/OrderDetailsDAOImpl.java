@@ -2,6 +2,7 @@ package lk.ijse.gdse.footwear.dao.custom.impl;
 
 import lk.ijse.gdse.footwear.dao.DAOFactory;
 import lk.ijse.gdse.footwear.dao.SQLUtil;
+import lk.ijse.gdse.footwear.dao.custom.OrderDAO;
 import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.ProductDAO;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
@@ -13,9 +14,11 @@ import java.util.ArrayList;
 
 public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
-    ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
+  //  ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
+ //   OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
+  //  OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
 
-    @Override
+  /*  @Override
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
         for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
             if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
@@ -24,7 +27,7 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
             }
 
             System.out.println("Processing: " + orderDetailsDTO);
-            boolean isOrderDetailsSaved = saveOrderDetail(orderDetailsDTO);
+            boolean isOrderDetailsSaved = this.saveOrderDetail(orderDetailsDTO);
             if (!isOrderDetailsSaved) {
                 System.out.println("Failed to save order details for: " + orderDetailsDTO.getProductId());
                 return false;
@@ -37,7 +40,8 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
             }
         }
         return true;
-    }
+    }*/
+
     @Override
     public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
         return null;
@@ -75,7 +79,7 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
         try {
             // Execute the query with the provided DTO values
-            boolean isSaved = SQLUtil.execute(
+            return SQLUtil.execute(
                     query,
                     orderDetailsDTO.getOrderId(),
                     orderDetailsDTO.getProductId(),
@@ -85,7 +89,7 @@ public class OrderDetailsDAOImpl implements OrderDetailsDAO {
                     orderDetailsDTO.getTotal()
             );
 
-            return isSaved; // Return the status of execution
+
         } catch (SQLException sqlException) {
             // Log SQL-related exceptions with a meaningful message
             System.err.println("Error saving order details to the database: " + sqlException.getMessage());

@@ -28,12 +28,13 @@ public class BOFactory {
                 return new ProductBOImpl();
             case PAYMENT:
                 return new PaymentBOImpl();
-            case ORDER_DETAILS:
-                return new OrderDetailsBOImpl();
             case ORDER:
                 return new OrderBOImpl();
+            case ORDER_DETAILS:
+                return new OrderDetailsBOImpl();
             default:
                 return null;
+
         }
     }
 }

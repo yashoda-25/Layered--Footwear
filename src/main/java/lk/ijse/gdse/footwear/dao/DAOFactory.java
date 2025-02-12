@@ -28,10 +28,10 @@ public class DAOFactory {
                 return new ProductDAOImpl();
             case PAYMENT:
                 return new PaymentDAOImpl();
-            case ORDER_DETAILS:
-                return new OrderDetailsDAOImpl();
             case ORDER:
                 return new OrderDAOImpl();
+            case ORDER_DETAILS:
+                return new OrderDetailsDAOImpl();
             default:
                 return null;
 

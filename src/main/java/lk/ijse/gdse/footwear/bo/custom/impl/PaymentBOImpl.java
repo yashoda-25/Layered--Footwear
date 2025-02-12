@@ -41,12 +41,6 @@ public class PaymentBOImpl implements PaymentBO {
 
     @Override
     public boolean save(PaymentDTO entity) throws SQLException, ClassNotFoundException {
-        // Ensure the amount and discount are correctly set
-        double totalAmount = entity.getAmount();
-        double discount = entity.getDiscount();
-        double discountedTotal = totalAmount * (1 - discount / 100);
-        entity.setAmount(discountedTotal);
-
         return paymentDAO.save(new PaymentDTO(entity.getPaymentID(),entity.getAmount(),entity.getDiscount(),entity.getPaymentMethod(),entity.getDate(),entity.getOrderID()));
     }
 }

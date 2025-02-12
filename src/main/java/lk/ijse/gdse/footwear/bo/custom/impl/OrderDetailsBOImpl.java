@@ -19,14 +19,14 @@ public class OrderDetailsBOImpl implements OrderDetailsBO {
 
     @Override
     public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
-     /*   for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
+        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
             if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
                 System.out.println("Error: order_id or product_id is null.");
                 return false;
             }
 
             System.out.println("Processing: " + orderDetailsDTO);
-            boolean isOrderDetailsSaved = saveOrderDetail(orderDetailsDTO);
+            boolean isOrderDetailsSaved = orderDetailsDAO.saveOrderDetail(orderDetailsDTO);
             if (!isOrderDetailsSaved) {
                 System.out.println("Failed to save order details for: " + orderDetailsDTO.getProductId());
                 return false;
@@ -38,12 +38,12 @@ public class OrderDetailsBOImpl implements OrderDetailsBO {
                 return false;
             }
         }
-        return true;*/
-        return orderDetailsDAO.saveOrderDetailsList(orderDetailsDTOS);
+        return true;
+     //   return orderDetailsDAO.saveOrderDetailsList(orderDetailsDTOS);
 
     }
 
-    @Override
+ /*   @Override
     public boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
 
       /*  if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
@@ -76,8 +76,8 @@ public class OrderDetailsBOImpl implements OrderDetailsBO {
             System.err.println("Unexpected error while saving order details: " + exception.getMessage());
             exception.printStackTrace();
             return false; // Return false if a generic exception occurs
-        }*/
+        }
         return orderDetailsDAO.saveOrderDetail(orderDetailsDTO);
-    }
+    }*/
 
 }

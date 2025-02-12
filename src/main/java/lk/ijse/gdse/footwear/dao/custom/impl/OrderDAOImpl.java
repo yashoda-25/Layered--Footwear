@@ -8,9 +8,6 @@ import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.PaymentDTO;
 import lk.ijse.gdse.footwear.dto.PlaceOrderDTO;
-import lk.ijse.gdse.footwear.entity.PlaceOrder;
-import lk.ijse.gdse.footwear.entity.Payment;
-
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -19,7 +16,7 @@ import java.util.ArrayList;
 
 public class OrderDAOImpl implements OrderDAO {
 
-    PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
+  //  PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
     @Override
     public ArrayList<PlaceOrderDTO> getAll() throws SQLException, ClassNotFoundException {
@@ -28,7 +25,12 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean save(PlaceOrderDTO entity) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.execute(
+                "INSERT INTO Orders (order_id, customer_id, date) VALUES (?,?,?)",
+                entity.getOrderId(),
+                entity.getCustomerId(),
+                entity.getOrderDate()
+        );
     }
 
     @Override
@@ -60,10 +62,24 @@ public class OrderDAOImpl implements OrderDAO {
         return "O001";
     }
 
-
-
     @Override
-    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException {
+    public boolean saveOrderDetails(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException {
+
+        return SQLUtil.execute(
+                "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?,?,?,?,?,?)",
+                orderDetailsDTO.getOrderId(),
+                orderDetailsDTO.getProductId(),
+                orderDetailsDTO.getProductDescription(),
+                orderDetailsDTO.getQty(),
+                orderDetailsDTO.getPrice(),
+                orderDetailsDTO.getTotal()
+        );
+    }
+
+
+
+  /*  @Override
+    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
 
         try {
@@ -124,7 +140,10 @@ public class OrderDAOImpl implements OrderDAO {
             // Resets auto-commit to true after the operation
             connection.setAutoCommit(true); // 4
         }
-    }
+    }*/
+
+
+
 
     @Override
     public String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
@@ -137,6 +156,8 @@ public class OrderDAOImpl implements OrderDAO {
         }
         return null;
     }
+
+
 
 
 

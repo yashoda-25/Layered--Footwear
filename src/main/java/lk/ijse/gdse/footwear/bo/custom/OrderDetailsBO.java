@@ -8,5 +8,5 @@ import java.util.ArrayList;
 
 public interface OrderDetailsBO extends SuperBO {
     boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException;
-    boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException;
+  //  boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException;
 }

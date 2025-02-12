@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class OrderBOImpl implements OrderBO {
 
-    OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
+    //OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
     PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
 
@@ -56,7 +56,7 @@ public class OrderBOImpl implements OrderBO {
 
             // Save each order detail in the 'order_details' table
             for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
-                boolean isOrderDetailsSaved = orderDetailsDAO.saveOrderDetail(orderDetailsDTO);
+                boolean isOrderDetailsSaved = orderDAO.saveOrderDetails(orderDetailsDTO);
                 System.out.println("Order details saved: " + isOrderDetailsSaved);
 
                 if (!isOrderDetailsSaved) {

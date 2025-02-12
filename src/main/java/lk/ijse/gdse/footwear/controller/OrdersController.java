@@ -241,16 +241,19 @@ public class OrdersController  implements Initializable {
         }
 
         // Apply discount to item total
-     //   double discountedAmount = amount * (1 - discount / 100);
+        double discountedAmount = amount * (1 - discount / 100);
        // System.out.println("Discounted Amount: " + total);
-     //   netTotal += discountedAmount;
+       // netTotal += discountedAmount;
        // System.out.println("Updated Total: " + netTotal);
 
-
-        // Apply discount and update netTotal
-        netTotal += netAmount * (1 - discount / 100);
+        netTotal += discountedAmount;
         lblTotal.setText(String.format("%.2f", netTotal));
         txtDiscount.setText(String.format("%.2f", discount));
+
+        // Apply discount and update netTotal
+      //  netTotal += netAmount * (1 - discount / 100);
+      //  lblTotal.setText(String.format("%.2f", netTotal));
+       // txtDiscount.setText(String.format("%.2f", discount));
 
 
 
@@ -261,6 +264,7 @@ public class OrdersController  implements Initializable {
                 int updateQty = cartTM.getCartQty() + cartQty;
                 cartTM.setCartQty(updateQty);
                 cartTM.setTotal((unitPrice * updateQty) * (1 - discount / 100));
+
 
                 tblCart.refresh();
                 updateTotalLabel();
@@ -276,7 +280,7 @@ public class OrdersController  implements Initializable {
                 selectedProductDesc,
                 cartQty,
                 unitPrice,
-                netTotal,
+                discountedAmount,
                 btn
         );
 
@@ -284,11 +288,13 @@ public class OrdersController  implements Initializable {
             cartTMS.remove(newCartTM);
             tblCart.refresh();
             updateTotalLabel();
+
         });
 
             cartTMS.add(newCartTM);
             tblCart.refresh();
             updateTotalLabel();
+
 
         // Clear input fields
             txtAddToCart.clear();
@@ -298,11 +304,12 @@ public class OrdersController  implements Initializable {
 
     private void updateTotalLabel () {
         double totalAmount = 0;
-        for (CartTM cartTM : cartTMS) {
+            for (CartTM cartTM : cartTMS) {
             totalAmount += cartTM.getTotal();
         }
         lblTotal.setText(String.format("%.2f", totalAmount));
     }
+
 
     @FXML
     void cmbPhoneNoOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
