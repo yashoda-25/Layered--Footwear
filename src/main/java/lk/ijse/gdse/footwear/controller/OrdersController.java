@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class OrdersController  implements Initializable {
+public class OrdersController implements Initializable {
 
     @FXML
     private AnchorPane OrdersView;
@@ -105,17 +105,17 @@ public class OrdersController  implements Initializable {
 
     private double netAmount = 0;
     private double netTotal = 0;
- //   private DecimalFormat decimalFormat = new DecimalFormat("0000.00");
+    //   private DecimalFormat decimalFormat = new DecimalFormat("0000.00");
 
     OrderDetailsBO orderDetailsBO = (OrderDetailsBO) BOFactory.getInstance().getBO(BOFactory.BOType.ORDER_DETAILS);
-   // private final OrderModel orderModel = new OrderModel();
+    // private final OrderModel orderModel = new OrderModel();
     OrderBO orderBO = (OrderBO) BOFactory.getInstance().getBO(BOFactory.BOType.ORDER);
 
     CustomerBO customerBO = (CustomerBO) BOFactory.getInstance().getBO(BOFactory.BOType.CUSTOMER);
-  //  private final CustomerModel customerModel = new CustomerModel();
-  //  private final ProductModel productModel = new ProductModel();
+    //  private final CustomerModel customerModel = new CustomerModel();
+    //  private final ProductModel productModel = new ProductModel();
     ProductBO productBO = (ProductBO) BOFactory.getInstance().getBO(BOFactory.BOType.PRODUCT);
-   // private final PaymentModel paymentModel = new PaymentModel();
+    // private final PaymentModel paymentModel = new PaymentModel();
     PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
 
     private final ObservableList<CartTM> cartTMS = FXCollections.observableArrayList();
@@ -126,7 +126,7 @@ public class OrdersController  implements Initializable {
 
         try {
             refreshPage();
-        }catch (SQLException | ClassNotFoundException e){
+        } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "Fail to load data..! ").show();
         }
         cmbPaymentMethod.getItems().addAll("cash", "Card");
@@ -156,6 +156,8 @@ public class OrdersController  implements Initializable {
         cartTMS.clear();
 
         tblCart.refresh();
+        netTotal = 0;
+        netAmount = 0;
     }
 
     private void loadProductDesc() throws SQLException, ClassNotFoundException {
@@ -242,19 +244,18 @@ public class OrdersController  implements Initializable {
 
         // Apply discount to item total
         double discountedAmount = amount * (1 - discount / 100);
-       // System.out.println("Discounted Amount: " + total);
-       // netTotal += discountedAmount;
-       // System.out.println("Updated Total: " + netTotal);
+        // System.out.println("Discounted Amount: " + total);
+        // netTotal += discountedAmount;
+        // System.out.println("Updated Total: " + netTotal);
 
         netTotal += discountedAmount;
         lblTotal.setText(String.format("%.2f", netTotal));
         txtDiscount.setText(String.format("%.2f", discount));
 
         // Apply discount and update netTotal
-      //  netTotal += netAmount * (1 - discount / 100);
-      //  lblTotal.setText(String.format("%.2f", netTotal));
-       // txtDiscount.setText(String.format("%.2f", discount));
-
+        //  netTotal += netAmount * (1 - discount / 100);
+        //  lblTotal.setText(String.format("%.2f", netTotal));
+        // txtDiscount.setText(String.format("%.2f", discount));
 
 
         // Check if the product is already in the cart and update it
@@ -291,20 +292,20 @@ public class OrdersController  implements Initializable {
 
         });
 
-            cartTMS.add(newCartTM);
-            tblCart.refresh();
-            updateTotalLabel();
+        cartTMS.add(newCartTM);
+        tblCart.refresh();
+        updateTotalLabel();
 
 
         // Clear input fields
-            txtAddToCart.clear();
-            txtDiscount.clear();
+        txtAddToCart.clear();
+        txtDiscount.clear();
 
     }
 
-    private void updateTotalLabel () {
+    private void updateTotalLabel() {
         double totalAmount = 0;
-            for (CartTM cartTM : cartTMS) {
+        for (CartTM cartTM : cartTMS) {
             totalAmount += cartTM.getTotal();
         }
         lblTotal.setText(String.format("%.2f", totalAmount));
@@ -337,11 +338,11 @@ public class OrdersController  implements Initializable {
         String selectedPaymentMethod = cmbPaymentMethod.getSelectionModel().getSelectedItem();
         PaymentDTO paymentDTO = paymentBO.findById(selectedPaymentMethod);
 
-        if (paymentDTO != null) {
-            lblAmount.setText(String.format("%.2f", paymentDTO.getAmount()));
-            txtDiscount.setText(String.format("%.2f", paymentDTO.getDiscount()));
-            lblTotal.setText(String.format("%.2f", paymentDTO.getAmount()));
-        }
+//        if (paymentDTO != null) {
+//            lblAmount.setText(String.format("%.2f", paymentDTO.getAmount()));
+//            txtDiscount.setText(String.format("%.2f", paymentDTO.getDiscount()));
+//            lblTotal.setText(String.format("%.2f", paymentDTO.getAmount()));
+//        }
     }
 
     @FXML
@@ -429,73 +430,73 @@ public class OrdersController  implements Initializable {
         );
 
 
-        boolean isOrderSaved = orderBO.saveOrderWithPayment(placeOrderDTO,paymentDTO);
+        boolean isOrderSaved = orderBO.saveOrderWithPayment(placeOrderDTO, paymentDTO);
         if (!isOrderSaved) {
             System.out.println("Failed to save order or payment.");
             new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
             return;
         }
-        boolean isOrderDetailsSaved = orderDetailsBO.saveOrderDetailsList(orderDetailsDTOS);
+//        boolean isOrderDetailsSaved = orderDetailsBO.saveOrderDetailsList(orderDetailsDTOS);
 
-        if (isOrderDetailsSaved ) {
-            new Alert(Alert.AlertType.INFORMATION, "Order details successfully added..!").show();
-            refreshPage();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
-        }
+//        if (isOrderDetailsSaved) {
+        new Alert(Alert.AlertType.INFORMATION, "Order details successfully added..!").show();
+        refreshPage();
+//        } else {
+//            new Alert(Alert.AlertType.ERROR, "Fail to save order..!").show();
+//        }
     }
 
 
     @FXML
     void btnBillOnAction(ActionEvent event) {
         try {
-                // Load Jasper Report Design
-                InputStream reportStream = getClass().getResourceAsStream("/Report/Receipt.jrxml");
-                if (reportStream == null) {
-                    new Alert(Alert.AlertType.ERROR, "Report file not found!").show();
-                    return;
-                }
-                JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
-
-                // Check if an order is selected
-                if (tblCart.getSelectionModel().getSelectedItem() == null) {
-                    new Alert(Alert.AlertType.WARNING, "Please select an order first!").show();
-                    return;
-                }
-
-                // Get Selected Order ID
-                Object selectedOrderId = tblCart.getSelectionModel().getSelectedItem().getOrderId();
-
-                // Pass Parameters to the Report
-                Map<String, Object> parameters = new HashMap<>();
-                parameters.put("order_id", selectedOrderId);
-
-                // Get Database Connection
-                try (Connection connection = DBConnection.getInstance().getConnection()) {
-                    // Fill Report
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(
-                            jasperReport,
-                            parameters,
-                            connection
-                    );
-
-                    // View the Report
-                    JasperViewer viewer = new JasperViewer(jasperPrint, false);
-                    viewer.setVisible(true);
-
-                }
-
-            } catch (JRException e) {
-                new Alert(Alert.AlertType.ERROR, "Error generating bill report: " + e.getMessage()).show();
-                e.printStackTrace();
-            } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
-                e.printStackTrace();
-            } catch (Exception e) {
-                new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
-                e.printStackTrace();
+            // Load Jasper Report Design
+            InputStream reportStream = getClass().getResourceAsStream("/Report/Receipt.jrxml");
+            if (reportStream == null) {
+                new Alert(Alert.AlertType.ERROR, "Report file not found!").show();
+                return;
             }
+            JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+            // Check if an order is selected
+            if (tblCart.getSelectionModel().getSelectedItem() == null) {
+                new Alert(Alert.AlertType.WARNING, "Please select an order first!").show();
+                return;
+            }
+
+            // Get Selected Order ID
+            Object selectedOrderId = tblCart.getSelectionModel().getSelectedItem().getOrderId();
+
+            // Pass Parameters to the Report
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("order_id", selectedOrderId);
+
+            // Get Database Connection
+            try (Connection connection = DBConnection.getInstance().getConnection()) {
+                // Fill Report
+                JasperPrint jasperPrint = JasperFillManager.fillReport(
+                        jasperReport,
+                        parameters,
+                        connection
+                );
+
+                // View the Report
+                JasperViewer viewer = new JasperViewer(jasperPrint, false);
+                viewer.setVisible(true);
+
+            }
+
+        } catch (JRException e) {
+            new Alert(Alert.AlertType.ERROR, "Error generating bill report: " + e.getMessage()).show();
+            e.printStackTrace();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database connection error: " + e.getMessage()).show();
+            e.printStackTrace();
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Unexpected error: " + e.getMessage()).show();
+            e.printStackTrace();
         }
+    }
 
 
 

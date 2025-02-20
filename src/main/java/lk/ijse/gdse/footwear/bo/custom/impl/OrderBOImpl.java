@@ -6,6 +6,7 @@ import lk.ijse.gdse.footwear.dao.SQLUtil;
 import lk.ijse.gdse.footwear.dao.custom.OrderDAO;
 import lk.ijse.gdse.footwear.dao.custom.OrderDetailsDAO;
 import lk.ijse.gdse.footwear.dao.custom.PaymentDAO;
+import lk.ijse.gdse.footwear.dao.custom.ProductDAO;
 import lk.ijse.gdse.footwear.db.DBConnection;
 import lk.ijse.gdse.footwear.dto.OrderDetailsDTO;
 import lk.ijse.gdse.footwear.dto.PaymentDTO;
@@ -24,6 +25,7 @@ public class OrderBOImpl implements OrderBO {
     //OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
     PaymentDAO paymentDAO = (PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
+    ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
 
     @Override
     public String getNextId() throws SQLException, ClassNotFoundException {
@@ -54,12 +56,21 @@ public class OrderBOImpl implements OrderBO {
                 return false;
             }
 
+            System.out.println(placeOrderDTO.getOrderDetailsDTOS());
+
             // Save each order detail in the 'order_details' table
             for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
                 boolean isOrderDetailsSaved = orderDAO.saveOrderDetails(orderDetailsDTO);
                 System.out.println("Order details saved: " + isOrderDetailsSaved);
 
                 if (!isOrderDetailsSaved) {
+                    connection.rollback(); // Rollback transaction if any detail insertion fails
+                    return false;
+                }
+
+                boolean isProductUpdated = productDAO.reduceQty(orderDetailsDTO.getProductId(), orderDetailsDTO.getQty());
+
+                if (!isProductUpdated) {
                     connection.rollback(); // Rollback transaction if any detail insertion fails
                     return false;
                 }
@@ -70,6 +81,7 @@ public class OrderBOImpl implements OrderBO {
             return true;
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Transaction failed: " + e.getMessage());
             // Rolls back the transaction in case of any exception
             connection.rollback();
@@ -79,7 +91,6 @@ public class OrderBOImpl implements OrderBO {
             connection.setAutoCommit(true); // 4
         }
     }
-
 
 
     @Override
