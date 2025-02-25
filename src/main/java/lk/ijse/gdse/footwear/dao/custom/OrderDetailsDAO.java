@@ -10,6 +10,6 @@ import java.util.ArrayList;
 
 public interface OrderDetailsDAO extends CrudDAO<OrderDetails, String> {
     boolean saveOrderDetail(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException;
-   // boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException;
+
 
 }

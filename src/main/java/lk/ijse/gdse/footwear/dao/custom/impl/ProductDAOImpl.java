@@ -119,7 +119,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public Product findByProductionDescripton(String selectedProductDesc) throws SQLException, ClassNotFoundException {
+    public Product findByProductionDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.execute("SELECT product_id, product_description, qty, price FROM Products WHERE product_description=?", selectedProductDesc);
 
         if (rst.next()) {

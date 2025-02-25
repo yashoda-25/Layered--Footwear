@@ -14,33 +14,7 @@ import java.util.ArrayList;
 
 public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
-  //  ProductDAO productDAO = (ProductDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PRODUCT);
- //   OrderDAO orderDAO = (OrderDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER);
-  //  OrderDetailsDAO orderDetailsDAO = (OrderDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ORDER_DETAILS);
 
-  /*  @Override
-    public boolean saveOrderDetailsList(ArrayList<OrderDetailsDTO> orderDetailsDTOS) throws SQLException, ClassNotFoundException {
-        for (OrderDetailsDTO orderDetailsDTO : orderDetailsDTOS) {
-            if (orderDetailsDTO.getOrderId() == null || orderDetailsDTO.getProductId() == null) {
-                System.out.println("Error: order_id or product_id is null.");
-                return false;
-            }
-
-            System.out.println("Processing: " + orderDetailsDTO);
-            boolean isOrderDetailsSaved = this.saveOrderDetail(orderDetailsDTO);
-            if (!isOrderDetailsSaved) {
-                System.out.println("Failed to save order details for: " + orderDetailsDTO.getProductId());
-                return false;
-            }
-
-            boolean isProductUpdated = productDAO.reduceQty(orderDetailsDTO.getProductId(),orderDetailsDTO.getQty());
-            if (!isProductUpdated) {
-                System.out.println("Failed to update stock for productId: " + orderDetailsDTO.getProductId());
-                return false;
-            }
-        }
-        return true;
-    }*/
 
     @Override
     public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {

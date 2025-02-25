@@ -172,15 +172,7 @@ public class ProductController implements Initializable {
         String productDescription = txtProductDescription.getText();
         int quantity = Integer.parseInt(txtQuantity.getText());
         double price = Double.parseDouble(txtPrice.getText());
-    //    String inventoryDescription = txtInventoryDesc.getText();
 
-
-        // Create the ProductDTO and InventoryDTO
-     //   String inventoryId = inventoryModel.getNextInventoryId();
-     //   ProductDetailsDTO productDetailsDTO = new ProductDetailsDTO(inventoryId, inventoryDescription, quantity, price);
-
-      //  ArrayList<ProductDetailsDTO> productDetailsDTO = new ArrayList<>();
-     //   ProductDetailsDTO.add(productDetailsDTO);
 
         ProductDTO productDTO = new ProductDTO(productId, productDescription, quantity, price);
 
@@ -193,13 +185,6 @@ public class ProductController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to save product..! ").show();
         }
-
-     /*   if (isInventorySaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Product saved successfully..! ").show();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Fail to save product. ").show();
-        } */
-
 
     }
 
@@ -224,12 +209,6 @@ public class ProductController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "Fail to update product..! ").show();
         }
-
-    /*    if (isInventoryUpdated) {
-            new Alert(Alert.AlertType.INFORMATION, "Product updated successfully..! ").show();
-        }else {
-            new Alert(Alert.AlertType.ERROR, "Fail to update product. ").show();
-        } */
 
     }
 

@@ -18,7 +18,7 @@ public interface ProductBO extends SuperBO {
     ProductDTO findById(String selectedProId) throws SQLException, ClassNotFoundException;
     boolean reduceQty(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException;
     ArrayList<String> getAllProductsDesc() throws SQLException, ClassNotFoundException;
-    ProductDTO findByProductionDescripton(String selectedProductDesc) throws SQLException, ClassNotFoundException;
+    ProductDTO findByProductionDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException;
 
 
 

@@ -325,7 +325,7 @@ public class OrdersController implements Initializable {
     @FXML
     void cmbProductDescriptionOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         String selectedProductDesc = cmbProductDescription.getSelectionModel().getSelectedItem();
-        ProductDTO productDTO = productBO.findByProductionDescripton(selectedProductDesc);
+        ProductDTO productDTO = productBO.findByProductionDescription(selectedProductDesc);
 
         if (productDTO != null) {
             lblProductQty.setText(String.valueOf(productDTO.getQuantity()));

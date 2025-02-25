@@ -76,75 +76,6 @@ public class OrderDAOImpl implements OrderDAO {
         );
     }
 
-
-
-  /*  @Override
-    public boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getInstance().getConnection();
-
-        try {
-            // Disables auto-commit to manually control the transaction
-            connection.setAutoCommit(false); // 1
-
-            // Save each orders data in the 'orders' table
-            boolean isOrderSaved = SQLUtil.execute(
-                    "INSERT INTO Orders (order_id, customer_id, date) VALUES (?,?,?)",
-                    placeOrderDTO.getOrderId(),
-                    placeOrderDTO.getCustomerId(),
-                    placeOrderDTO.getOrderDate()
-
-            );
-            System.out.println("Order saved: " + isOrderSaved);
-
-            if (!isOrderSaved) {
-                connection.rollback();
-                return false;
-            }
-
-            boolean isPaymentSaved = paymentDAO.save(paymentDTO);
-            System.out.println("Payment saved: " + isPaymentSaved);
-            if (!isPaymentSaved) {
-                connection.rollback();
-                return false;
-            }
-
-            // Save each order detail in the 'order_details' table
-            for (OrderDetailsDTO orderDetailsDTO : placeOrderDTO.getOrderDetailsDTOS()) {
-                boolean isOrderDetailsSaved = SQLUtil.execute(
-                        "INSERT INTO OrderDetails (order_id, product_id, product_description, qty, price, total) VALUES (?,?,?,?,?,?)",
-                        orderDetailsDTO.getOrderId(),
-                        orderDetailsDTO.getProductId(),
-                        orderDetailsDTO.getProductDescription(),
-                        orderDetailsDTO.getQty(),
-                        orderDetailsDTO.getPrice(),
-                        orderDetailsDTO.getTotal()
-                );
-                System.out.println("Order details saved: " + isOrderDetailsSaved);
-
-                if (!isOrderDetailsSaved) {
-                    connection.rollback(); // Rollback transaction if any detail insertion fails
-                    return false;
-                }
-            }
-
-            // Commit the transaction if both the order and its details are successfully saved
-            connection.commit();
-            return true;
-
-        } catch (Exception e) {
-            System.out.println("Transaction failed: " + e.getMessage());
-            // Rolls back the transaction in case of any exception
-            connection.rollback();
-            return false;
-        } finally {
-            // Resets auto-commit to true after the operation
-            connection.setAutoCommit(true); // 4
-        }
-    }*/
-
-
-
-
     @Override
     public String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
         //   String productId = ""; // Initialize productId variable
@@ -156,11 +87,6 @@ public class OrderDAOImpl implements OrderDAO {
         }
         return null;
     }
-
-
-
-
-
 
 }
 

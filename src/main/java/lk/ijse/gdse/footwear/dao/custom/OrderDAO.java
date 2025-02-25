@@ -10,8 +10,6 @@ import lk.ijse.gdse.footwear.entity.Payment;
 import java.sql.SQLException;
 
 public interface OrderDAO extends CrudDAO<PlaceOrderDTO, String> {
-  //  String getNextId() throws SQLException, ClassNotFoundException;
-  //  boolean saveOrderWithPayment(PlaceOrderDTO placeOrderDTO, PaymentDTO paymentDTO) throws SQLException, ClassNotFoundException;
     boolean saveOrderDetails(OrderDetailsDTO orderDetailsDTO) throws SQLException, ClassNotFoundException;
     String getProductIdByDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException;
 

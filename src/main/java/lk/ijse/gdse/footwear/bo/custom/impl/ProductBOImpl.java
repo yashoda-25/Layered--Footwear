@@ -79,8 +79,8 @@ public class ProductBOImpl implements ProductBO {
     }
 
     @Override
-    public ProductDTO findByProductionDescripton(String selectedProductDesc) throws SQLException, ClassNotFoundException {
-        Product product = productDAO.findByProductionDescripton(selectedProductDesc);
+    public ProductDTO findByProductionDescription(String selectedProductDesc) throws SQLException, ClassNotFoundException {
+        Product product = productDAO.findByProductionDescription(selectedProductDesc);
 
         if (product == null) {
             return null;
